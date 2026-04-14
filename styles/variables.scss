@@ -1,14 +1,16 @@
-
 // =======================
 // 🎨 COLORS (Barbershop Theme)
 // =======================
 
-$color-primary: #d4af37; // gold
-$color-primary-hover: #c19b2e;
+$color-primary: #e6b71e;
+$color-secondary: #f8ca31;
+$color-tertiary: #fdd348;
+$color-primary-hover: #fddd86;
 
-$color-background: #0f0f0f;
+$color-background: radial-gradient(circle, #202020 50%, #0f0f0f 100%);
 $color-surface: #1a1a1a;
 $color-surface-light: #242424;
+$color-surface-dark: #141414;
 
 $color-text: #ffffff;
 $color-text-muted: #b3b3b3;
@@ -20,18 +22,19 @@ $color-error: #dc3545;
 $color-warning: #ffc107;
 
 // =======================
-// 🔤 TYPOGRAPHY
+// 🔤 TYPOGRAPHY (RESPONSIVE)
 // =======================
 
 $font-primary: 'Inter', sans-serif;
 $font-heading: 'Playfair Display', serif;
 
-$font-size-xs: 0.75rem;  // 12px
-$font-size-sm: 0.875rem; // 14px
-$font-size-md: 1rem;     // 16px
-$font-size-lg: 1.25rem;  // 20px
-$font-size-xl: 1.75rem;  // 28px
-$font-size-2xl: 2.5rem;  // 40px
+// Fluido com clamp
+$font-size-xs: clamp(0.7rem, 0.8vw, 0.75rem);
+$font-size-sm: clamp(0.8rem, 1vw, 0.875rem);
+$font-size-md: clamp(0.9rem, 1.2vw, 1rem);
+$font-size-lg: clamp(1.1rem, 1.5vw, 1.25rem);
+$font-size-xl: clamp(1.5rem, 2vw, 1.75rem);
+$font-size-2xl: clamp(2rem, 3vw, 2.5rem);
 
 $font-weight-light: 300;
 $font-weight-regular: 400;
@@ -39,15 +42,15 @@ $font-weight-medium: 500;
 $font-weight-bold: 700;
 
 // =======================
-// 📏 SPACING (8px scale)
+// 📏 SPACING (FLUIDO)
 // =======================
 
-$spacing-xs: 0.25rem; // 4px
-$spacing-sm: 0.5rem;  // 8px
-$spacing-md: 1rem;    // 16px
-$spacing-lg: 1.5rem;  // 24px
-$spacing-xl: 2rem;    // 32px
-$spacing-2xl: 3rem;   // 48px
+$spacing-xs: clamp(0.25rem, 0.5vw, 0.4rem);
+$spacing-sm: clamp(0.5rem, 1vw, 0.75rem);
+$spacing-md: clamp(1rem, 1.5vw, 1.25rem);
+$spacing-lg: clamp(1.5rem, 2vw, 2rem);
+$spacing-xl: clamp(2rem, 3vw, 2.5rem);
+$spacing-2xl: clamp(3rem, 4vw, 4rem);
 
 // =======================
 // 📐 BORDER RADIUS
@@ -82,6 +85,14 @@ $bp-sm: 480px;
 $bp-md: 768px;
 $bp-lg: 1024px;
 $bp-xl: 1280px;
+
+// =======================
+// 🧱 LAYOUT HELPERS (NOVO)
+// =======================
+
+// Container padrão (MUITO importante)
+$container-max-width: 1200px;
+$container-padding: clamp(1rem, 4vw, 2rem);
 
 // =======================
 // 🧱 Z-INDEX

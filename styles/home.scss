@@ -1,0 +1,218 @@
+@use './variables.scss' as *;
+@use './mixins.scss' as *;
+
+.home-main {
+  @include flex(center, center, column);
+
+  .home-navbar {
+    @include flex(center, space-between);
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+    background: rgba(20, 20, 20, 0.5);
+    backdrop-filter: blur(22px);
+    padding: 0 $spacing-lg;
+    font-size: $font-size-sm;
+
+    .nav-logo {
+      height: 100%;
+      @include flex(center, center);
+    }
+
+    .nav-list {
+      @include flex;
+      gap: $spacing-xl;
+      list-style: none;
+
+      li {
+        cursor: pointer;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+
+        &:hover {
+          color: $color-primary-hover;
+        }
+      }
+    }
+
+    .book-bttn {
+      @include button;
+    }
+  }
+
+  .main-screen {
+    @include flex(center, center, column);
+
+    width: 100%;
+    min-height: 100dvh;
+    padding: clamp($spacing-md, 3vw, $spacing-2xl);
+
+    background:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      url("/barber-cover.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    .main-phrase {
+      font-family: 'Times New Roman', Times, serif;
+      font-weight: 500;
+      font-style: italic;
+      font-size: 5rem;
+      width: 50%;
+      text-align: center;
+
+      @include mobile-lg {
+        width: 100%;
+      }
+    }
+
+    .main-message {
+      padding: $spacing-md;
+      text-align: center;
+      width: 70%;
+
+      @include mobile-lg {
+        width: 100%;
+      }
+    }
+
+    .book-app-container {
+      button {
+        @include button;
+        margin: 15px 0;
+      }
+    }
+  }
+
+  .services-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "phrase paragraph"
+      "services services";
+    width: 100%;
+    min-height: 100dvh;
+    max-width: $container-max-width;
+    padding: 0 $container-padding;
+    margin: 0 auto;
+
+    @include tablet {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "phrase"
+        "paragraph"
+        "services";
+    }
+
+    .services-main-phrase {
+      @include flex(start, start, column);
+
+      grid-area: phrase;
+      margin: $spacing-2xl;
+
+      > * {
+        margin: 10px 0;
+      }
+    }
+
+    .services-paragraph {
+      @include flex(center, center, column);
+
+      grid-area: paragraph;
+      margin: $spacing-2xl;
+      color: $color-text-muted;
+      text-align: center;
+    }
+
+    .services {
+      grid-area: services;
+
+      .serv-list {
+        @include flex(stretch, space-between);
+        list-style: none;
+
+        @include mobile-lg {
+          @include flex(stretch, space-between, column)
+        }
+
+        li {
+          position: relative;
+          overflow: hidden;
+
+          @include flex(start, space-around, column);
+
+          flex: 1;
+          margin: $spacing-xs;
+          padding: clamp($spacing-md, 3vw, $spacing-2xl);
+          min-height: 60vh;
+
+          h2 {
+            font-family: 'Times New Roman', Times, serif;
+          }
+
+          p {
+            color: $color-text-muted;
+          }
+
+          span {
+            color: $color-primary;
+            font-family: Arial, Helvetica, sans-serif;
+          }
+
+          &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+
+            opacity: 0.2;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+          }
+
+          &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1;
+            transition: opacity 0.5s ease;
+          }
+
+          &:hover::before {
+            opacity: 0.6; // imagem aparece
+            transform: scale(1.05); // leve zoom
+          }
+
+          &:hover::after {
+            opacity: 0.8; // escuro diminui
+          }
+
+          > * {
+            position: relative;
+            z-index: 2;
+          }
+        }
+
+        // imagens
+        #hair::before {
+          background-image: url("/hair-serv.png");
+        }
+
+        #beard::before {
+          background-image: url("/beard-serv.png");
+        }
+
+        #full-atelier::before {
+          background-image: url("/full-serv.png");
+        }
+      }
+    }
+  }
+}
