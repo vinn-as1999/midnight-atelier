@@ -1,0 +1,60 @@
+@use '../../styles/variables.scss' as *;
+@use '../../styles/mixins.scss' as *;
+
+
+.footer-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 
+    "name opt"
+    "rights rights";
+  width: 100%;
+  min-height: 50vh;
+  margin-top: 3rem;
+  padding: $spacing-2xl;
+  background-color: $color-surface-dark;
+
+  .footer-name {
+    grid-area: name;
+    margin: $spacing-2xl 0;
+
+    h1 {
+      font-size: $font-size-2xl;
+      font-family: $font-heading;
+      text-transform: uppercase;
+      color: $color-primary;
+    }
+
+    span {
+      color: $color-text-muted;
+      font-style: italic;
+    }
+  }
+
+  .footer-list {
+    grid-area: opt;
+    inset: 0;
+    margin: auto;
+
+    ul {
+      @include flex();
+
+      list-style: none;
+      text-transform: uppercase;
+      color: $color-text-muted;
+      gap: 1.5rem;
+
+      li:hover {
+        color: $color-primary;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .all-rights {
+    grid-area: rights;
+    border-top: solid 1px grey;
+    padding: $spacing-2xl 0;
+    color: $color-text-muted;
+  }
+}

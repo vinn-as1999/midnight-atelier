@@ -4,6 +4,9 @@ import { MdFaceUnlock, MdStarBorderPurple500 } from "react-icons/md";
 import { PiScissorsLight, PiScroll } from "react-icons/pi";
 import Link from "next/link";
 import '../styles/home.scss';
+import { IoMdStar, IoMdStarHalf } from "react-icons/io";
+import { FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { IoLocationOutline } from "react-icons/io5";
 
 
 export default function Home() {
@@ -95,17 +98,17 @@ export default function Home() {
       </section>
 
       <section className="barbers">
-        <span className="page-tag">meet the artisans</span>
-        <h2>The Masters</h2>
+        <header>
+          <span className="page-tag">meet the artisans</span>
+          <h2>The Masters</h2>
+        </header>
 
         <ul className="barbers-list">
           <li>
-            <article className="barber-img">
-              img
-            </article>
+            <article className="barber-img" id="julian" />
 
             <article className="barber-info">
-              <span className="page-tag">founder / lead barber</span>
+              <span className="page-tag">lead barber</span>
               <h3>Julian Thorne</h3>
               <p>
                 "Grooming is a form of architecture. It's about finding the balance between tradition and the individual's character."
@@ -118,10 +121,6 @@ export default function Home() {
           </li>
 
           <li>
-            <article className="barber-img">
-              img
-            </article>
-
             <article className="barber-info">
               <span className="page-tag">master stylist</span>
               <h3>Elias Vance</h3>
@@ -133,8 +132,52 @@ export default function Home() {
                 <PiScroll className="icon" />
               </button>
             </article>
+
+            <article className="barber-img" id="elias" />
           </li>
         </ul>
+      </section>
+
+      <section className="about-container">
+        <article className="about-img" />
+
+        <button className="about-bttn">
+          <Link href={"/appointment"}>book appointment</Link>
+        </button>
+
+        <article className="about-text">
+          <header>
+            <span className="page-tag">Born of Precision</span>
+            <h2>About Us</h2>
+          </header>
+
+          <div className="text">
+            <p>
+              Founded on the belief that grooming is an art form rather than a routine, this barbershop was born in the heart of an old urban district, where tradition meets quiet sophistication. What began as a modest chair and a pair of skilled hands has evolved into a refined space dedicated to precision, presence, and personal expression.
+            </p>
+            <p>
+              Every detail, from the curated ambiance to the meticulous craftsmanship of each cut, reflects a commitment to timeless elegance. Here, style is not merely delivered—it is carefully sculpted, ensuring every client leaves with a sense of distinction and understated confidence.
+            </p>
+          </div>
+
+          <div className="reviews">
+            <span className="number">4.9</span>
+            <span className="stars">
+              <IoMdStar />
+              <IoMdStar />
+              <IoMdStar />
+              <IoMdStar />
+              <IoMdStarHalf />
+            </span>
+          </div>
+
+          <div className="network">
+            <FaInstagram />
+            <FaWhatsapp />
+            <FaFacebookF />
+            <IoLocationOutline />
+          </div>
+        </article>
       </section>
 
       <Footer />
