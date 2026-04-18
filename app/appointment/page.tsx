@@ -6,11 +6,14 @@ import SelectDate from "@/components/select-date/SelectDate";
 import SelectService from "@/components/select-service/SelectService";
 import { AppointmentStatus } from "@/types/client-types";
 import { useState } from "react";
-import { IoIosArrowRoundBack } from "react-icons/io";
+import './appointment.scss';
+import TimeSlots from "@/components/timeslots/TimeSlots";
 
 
 export default function AppointmentPage() {
   const [appointmentStatus, setAppointmentStatus] = useState<AppointmentStatus>(AppointmentStatus.Barber);
+  const condition = appointmentStatus === AppointmentStatus.Barber ? 'full-width' : '';
+  const condition2 = appointmentStatus === AppointmentStatus.Barber ? 'hidden' : '';
 
   function renderStep() {
     switch (appointmentStatus) {
@@ -51,29 +54,56 @@ export default function AppointmentPage() {
       
   const buttonLabels = {
     [AppointmentStatus.Barber]: "Go to services",
-    [AppointmentStatus.Service]: "Select appointment date",
+    [AppointmentStatus.Service]: "appointment date",
     [AppointmentStatus.Date]: "Finish appointment",
   };
 
+  console.log(appointmentStatus)
+
   return (
-    <main className="appointment-main">
-      <nav className="general-nav">
-        <div>
-          <IoIosArrowRoundBack /> back
-        </div>
-      </nav>
+    <main className={`appointment-main ${appointmentStatus === AppointmentStatus.Date ? '' : 'no-hours'}`}>
       
-      {renderStep()}
+      <section className={`appointment-render ${condition}`}>
+        {renderStep()}
+      </section>
 
-      <div className="appointment-bttn-container">
-        <button onClick={switchRender}>
-          {buttonLabels[appointmentStatus] ?? "Back to Home"}
-        </button>
-      </div>
+      {appointmentStatus === AppointmentStatus.Date && <TimeSlots />}
 
-      {
-        // formulário de registro do cliente
-      }
+      <section className={`appointment-bttn-container ${condition}`}>
+        {
+          appointmentStatus !== AppointmentStatus.Date && <button onClick={switchRender}>
+            {buttonLabels[appointmentStatus] ?? "Back to Home"}
+          </button>
+        }
+      </section>
+
+      <section className={`appointment-sheet ${condition2}`}>
+        <article className="sheet">
+          <h1 className="title">Reservation</h1>
+          <ul className="sheet-list">
+            <li>
+              <h2>service</h2>
+              <span>Haircut</span>
+            </li>
+
+            <li>
+              <h2>barber</h2>
+              <span>Julian Thorne</span>
+            </li>
+            <li>
+              <h2>date & time</h2>
+              <span>Dec 10, 11:00 AM</span>
+            </li>
+            <li className="sheet-total">
+              <h2>total investment</h2>
+              <span>$ 65</span>
+            </li>
+          </ul>
+          <button disabled={appointmentStatus !== AppointmentStatus.Date}>
+            confirm appointment
+          </button>
+        </article>
+      </section>
 
       <Footer />
     </main>

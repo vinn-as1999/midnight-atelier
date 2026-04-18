@@ -1,0 +1,133 @@
+@use '../../styles/variables.scss' as *;
+@use '../../styles/mixins.scss' as *;
+
+
+.calendar-container {
+  @include flex(center, center, column);
+
+  background-color: $color-surface-dark;
+  width: 35vw;
+  min-height: 50dvh;
+  padding: $spacing-md;
+  margin: $spacing-lg;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: $font-size-md;
+  color: $color-text-muted;
+  border-radius: $radius-md;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: $shadow-lg;
+
+  header {
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+    grid-template-areas: 
+      "month bttns"
+      "week week";
+    padding: $spacing-sm $spacing-md 0 $spacing-md;
+    width: 100%;
+    text-transform: uppercase;
+
+    button {
+      all: unset;
+      cursor: pointer;
+      color: $color-text-muted;
+      padding: 4px 6px;
+      border-radius: $radius-sm;
+      transition: color 0.15s, background 0.15s;
+
+      &:hover {
+        color: $color-primary;
+        background: rgba(255, 255, 255, 0.05);
+      }
+    }
+
+    .month-info {
+      grid-area: month;
+      color: white;
+      font-weight: 600;
+      font-size: $font-size-lg;
+      display: flex;
+      align-items: center;
+    }
+
+    .bttn-bf {
+      grid-area: bttns;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 2px;
+    }
+
+    .week-list {
+      grid-area: week;
+      @include flex(center, space-between);
+      color: $color-primary;
+      list-style-type: none;
+      margin: $spacing-xs 0 4px 0;
+      padding: $spacing-xs 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+      li {
+        font-size: $font-size-sm;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        width: calc(100% / 7);
+        text-align: center;
+      }
+    }
+  }
+
+  .calendar-days {
+    flex: 1;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 2px;
+    width: 100%;
+    padding: $spacing-xs $spacing-sm;
+
+    li {
+      text-align: center;
+      padding: $spacing-xs;
+      border-radius: $radius-sm;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 1;
+
+      &:hover:not(.other-month) {
+        background: rgba(255, 255, 255, 0.07);
+        color: white;
+      }
+    }
+
+    .month-day {
+      color: $color-text;
+    }
+
+    .month-day.other-month {
+      color: rgba(255, 255, 255, 0.18);
+      cursor: default;
+    }
+
+    .month-current-day {
+      @include flex(center, center, column);
+      position: relative;
+      color: $color-primary;
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 90%;
+        left: 45%;
+        width: 5px;
+        height: 5px;
+        border-radius: $radius-full;
+        background-color: $color-primary;
+      }
+    }
+  }
+}

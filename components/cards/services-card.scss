@@ -1,0 +1,51 @@
+@use '../../styles/variables.scss' as *;
+@use '../../styles/mixins.scss' as *;
+
+
+.serv-card-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas: 
+    "serv-text serv-text serv-number";
+  width: 50vw;
+  margin: $spacing-md;
+  padding: $spacing-lg;
+  background-color: $color-surface-dark;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color-surface-light;
+  }
+
+  .serv-info {
+    grid-area: serv-text;
+    padding: 1em;
+
+    h2 {
+      font-family: $font-heading;
+      font-size: $font-size-2xl;
+      color: $color-primary;
+    }
+
+    p {
+      color: $color-text-muted;
+      font-style: italic;
+    }
+  }
+
+  .serv-number {
+    grid-area: serv-number;
+    @include flex(center, center, column);
+
+    .price {
+      font-family: $font-heading;
+      font-size: $font-size-xl;
+      color: $color-primary;
+    }
+
+    .duration {
+      font-size: $font-size-sm;
+      color: $color-text-muted;
+    }
+  }
+}

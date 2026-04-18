@@ -1,0 +1,15 @@
+@use '../../styles/variables.scss' as *;
+@use '../../styles/mixins.scss' as *;
+
+
+.sel-services-container {
+  header {
+    @include flex(center, center, column);
+    @include header;
+  }
+
+  .sel-services-list {
+    @include flex(center, center, column);
+    list-style: none;
+  }
+}

@@ -1,0 +1,126 @@
+@use '../../styles/variables.scss' as *;
+@use '../../styles/mixins.scss' as *;
+
+
+.sel-barber-container {
+  @include flex(center, center, column);
+
+  width: 100%;
+  min-height: 100dvh;
+
+  header {
+    @include flex(center, center, column);
+    @include header;
+  }
+
+  .b-list-container {
+    width: 100%;
+    min-height: 70vh;
+
+    .barber-list {
+      @include flex();
+
+      list-style: none;
+      gap: $spacing-lg;
+      height: 100vh;
+
+      @include tablet {
+        @include flex(center, center, column);
+      }
+
+      li {
+        @include flex(center, center, column);
+        width: 30%;
+        cursor: pointer;
+
+
+        @include mobile-lg {
+          width: 100%;
+        }
+
+        @include tablet {
+          width: 100%;
+        }
+
+        &:hover {
+          h3 {color: $color-primary;}
+        }
+
+        .barber-img {
+          width: 25vw;
+          height: 70vh;
+          position: relative;
+          overflow: hidden;
+
+          @include mobile-lg {
+            width: 60%;
+          }
+
+          @include tablet {
+            width: 80%;
+          }
+
+          
+          &:hover {
+            box-shadow: 1 1 50 0.1 rgb(59, 59, 32);
+          }
+
+          img {
+            inset: 0;
+            top: 0;
+            left: 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+            filter: grayscale(100%);
+
+            &:hover {
+              transform: scale(1.05);
+              filter: grayscale(0%);
+            }
+          }
+
+          .selected {
+            inset: 0;
+            top: 0;
+            left: 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+            transform: scale(1.05);
+            filter: grayscale(0%);
+          }
+        }
+
+        .barber-info {
+          @include flex(center, center, column);
+          margin: $spacing-sm;
+
+          h3 {
+            font-family: $font-heading;
+            font-size: $font-size-xl;
+          }
+
+          p {
+            text-align: center;
+            color: $color-text-muted;
+          }
+
+          .reviews {
+            @include flex(center, center);
+            gap: 8;
+            
+            .stars {
+              @include flex(center, center);
+              color: $color-primary;
+            }
+          }
+        }
+      }
+    }
+  }
+}

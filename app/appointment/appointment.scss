@@ -1,0 +1,116 @@
+@use '../../styles/variables.scss' as *;
+@use '../../styles/mixins.scss' as *;
+
+
+.appointment-main {
+  display: grid;
+  grid-template-columns: 2fr 2fr 2fr;
+  grid-template-areas: 
+    "render hours sheet"
+    "bttn hours sheet"
+    "footer footer footer";
+  min-height: 100dvh;
+  padding-top: $spacing-2xl;
+
+  &.no-hours {
+    grid-template-columns: 2fr 0fr 2fr;
+  }
+
+  .appointment-render {
+    grid-area: render;
+
+    &.full-width {
+      grid-column: 1 / -1;
+    }
+  }
+  
+  .appointment-bttn-container {
+    @include flex();
+    width: 100%;
+    grid-area: bttn;
+
+    &.full-width {
+      grid-column: 1 / -1;
+    }
+    
+    button {
+      @include button;
+      width: 20%;
+      text-align: center;
+    }
+  }
+
+  .appointment-sheet {
+    @include flex(center, center);
+    grid-area: sheet;
+    width: 100%;
+    min-height: 80%;
+
+    &.hidden {
+      visibility: hidden
+    }
+
+    .sheet {
+      @include flex(start, space-between, column);
+      background-color: #131212;
+      justify-self: center;
+      padding: $spacing-lg;
+      color: $font-primary;
+      width: 25vw;
+      height: 80vh;
+
+      h1 {
+        font-family: $font-heading;
+        margin-bottom: $spacing-md;
+        padding: $spacing-sm 0;
+        border-bottom: solid 1px rgb(54, 54, 54);
+        width: 100%;
+      }
+
+      .sheet-list {
+        @include flex(start, space-between, column);
+        list-style: none;
+        height: 60%;
+        width: 100%;
+        
+        li {
+          @include flex(start, start, column);
+          gap: 5;
+
+          h2 {
+            text-transform: uppercase;
+            font-size: $font-size-sm;
+            font-weight: 400;
+            font-family: 'Raleway', Arial, Helvetica, sans-serif;
+            color: rgb(129, 116, 94);
+          }
+
+          span {
+            font-family: $font-heading;
+            font-size: $font-size-xl
+          }
+        }
+
+        .sheet-total {
+          @include flex(center, space-around);
+          width: 100%;
+          color: $color-primary;
+          border-top: solid 1px rgb(54, 54, 54);
+          
+          span {
+            font-size: $font-size-2xl
+          }
+        }
+      }
+
+      button {
+        @include button;
+      }
+
+      button:disabled {
+        background: $color-text-muted !important;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

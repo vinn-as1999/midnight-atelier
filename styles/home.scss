@@ -4,45 +4,6 @@
 .home-main {
   @include flex(center, center, column);
 
-  .home-navbar {
-    @include flex(center, space-between);
-
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 999;
-    width: 100%;
-    background: rgba(20, 20, 20, 0.5);
-    backdrop-filter: blur(22px);
-    padding: 0 $spacing-lg;
-    font-size: $font-size-sm;
-
-    .nav-logo {
-      height: 100%;
-      @include flex(center, center);
-    }
-
-    .nav-list {
-      @include flex;
-      gap: $spacing-xl;
-      list-style: none;
-
-      li {
-        cursor: pointer;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-
-        &:hover {
-          color: $color-primary-hover;
-        }
-      }
-    }
-
-    .book-bttn {
-      @include button;
-    }
-  }
-
   .main-screen {
     @include flex(center, center, column);
 
@@ -66,6 +27,10 @@
       width: 50%;
       text-align: center;
 
+      @include tablet {
+        width: 100%;
+      }
+
       @include mobile-lg {
         width: 100%;
       }
@@ -75,6 +40,10 @@
       padding: $spacing-md;
       text-align: center;
       width: 50%;
+
+      @include tablet {
+        width: 90%;
+      }
 
       @include mobile-lg {
         width: 100%;
@@ -247,6 +216,10 @@
       li {
         @include flex(center, center, row);
 
+        @include mobile-lg {
+          @include flex(center, center, column);
+        }
+
         height: 60vh;
         margin: $spacing-sm;
 
@@ -256,6 +229,10 @@
           height: 100%;
           position: relative;
           overflow: hidden;
+
+          @include mobile-lg {
+            width: 45vw;
+          }
 
           &::before {
             content: "";
@@ -295,6 +272,12 @@
           height: 100%;
           margin: 1em;
 
+          @include mobile-lg {
+            @include flex(center, center, column);
+
+            width: 100%;
+          }
+
           h3 {
             font-family: $font-heading;
           }
@@ -302,6 +285,11 @@
           p {
             color: $color-text-muted;
             font-style: italic;
+
+            @include mobile-lg {
+              font-size: 10px;
+              width: 80%;
+            }
           }
 
           button {
@@ -322,8 +310,15 @@
       "bttn txt";
     align-items: center;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     gap: 2rem;
+
+    @include mobile-lg {
+      grid-template-areas: 
+        "img img"
+        "txt txt"
+        "bttn bttn";
+    }
 
     .about-img {
       position: relative;
@@ -352,6 +347,15 @@
         height: 70%;
         width: 70%;
         transition: ease-in-out 0.5s;
+
+        @include mobile-lg {
+          height: 50%;
+          width: 100%;
+        }
+
+        @include tablet {
+          height: 35%;
+        }
       }
     
       &:hover::before {
@@ -373,6 +377,15 @@
       height: 100%;
       width: 80%;
 
+      @include mobile-lg {
+        width: 100%;
+        padding: $spacing-lg;
+      }
+
+      @include tablet {
+        @include flex(center, center, column);
+      }
+
       header {
         @include flex(center, center, column);
         
@@ -386,8 +399,12 @@
       .text {
         @include flex(start, space-between, column);
 
-        height: 40vh;
+        min-height: 40vh;
         color: $color-text-muted;
+
+        @include tablet {
+          min-height: 30vh;
+        }
       }
     }
 

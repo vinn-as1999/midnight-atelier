@@ -7,27 +7,14 @@ import '../styles/home.scss';
 import { IoMdStar, IoMdStarHalf } from "react-icons/io";
 import { FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { IoLocationOutline } from "react-icons/io5";
+import OptionsController from "@/components/opt-controller/OptionsController";
 
 
 export default function Home() {
   return (
     <main className="home-main">
-      <nav className="home-navbar">
-        <div className="nav-logo">
-          <Image src={"/s-logo.png"} alt="TMA Logo"   width={100} height={70} />
-        </div>
 
-        <ul className="nav-list">
-          <li>about</li>
-          <li>services</li>
-          <li>barbers</li>
-          <li>contact</li>
-        </ul>
-
-        <button className="book-bttn">
-          <Link href={"/appointment"}>book now</Link>
-        </button>
-      </nav>
+      <OptionsController />
 
       <section className="main-screen">
         <span className="page-tag">the best</span>

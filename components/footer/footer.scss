@@ -13,6 +13,15 @@
   margin-top: 3rem;
   padding: $spacing-2xl;
   background-color: $color-surface-dark;
+  grid-area: footer;
+
+  @include mobile-lg {
+    text-align: center;
+    grid-template-areas: 
+      "name name"
+      "opt opt"
+      "rights rights";
+  }
 
   .footer-name {
     grid-area: name;
@@ -43,6 +52,10 @@
       text-transform: uppercase;
       color: $color-text-muted;
       gap: 1.5rem;
+      
+      @include mobile-lg {
+        margin: 2em 0;
+      }
 
       li:hover {
         color: $color-primary;

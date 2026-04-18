@@ -1,0 +1,72 @@
+@use '../../styles/variables.scss' as *;
+@use '../../styles/mixins.scss' as *;
+
+
+aside {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: -500;
+  z-index: 999;
+  height: 100%;
+  width: 40%;
+  background-color: $color-surface-dark;
+
+  @include mobile-lg {
+    width: 70vw;
+  }
+
+
+  .close {
+    all: unset;
+    position: absolute;
+    top: 0;
+    left: 85%;
+    font-size: $font-size-2xl;
+    color: $color-primary;
+    cursor: pointer;
+  }
+
+  span {
+    font-family: $font-heading;
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: $font-size-2xl;
+    margin: $spacing-lg $spacing-md;
+    padding: $spacing-lg;
+    color: $color-primary;
+    border-bottom: 1px solid rgb(70, 70, 70);
+  }
+
+  .aside-list {
+    @include flex(center, start, column);
+
+    list-style: none;
+    gap: 2em;
+    margin: 1em;
+    padding: $spacing-lg;
+    text-transform: uppercase;
+    color: $color-text-muted;
+    width: 90%;
+  }
+
+  @include tablet {
+    @include flex(start, start, column);
+  }
+}
+
+.out {
+
+  animation: callAside 0.5s forwards;
+}
+
+
+@keyframes callAside {
+  from {
+    left: -500;
+  } 
+
+  to {
+    left: 0;
+  }
+}

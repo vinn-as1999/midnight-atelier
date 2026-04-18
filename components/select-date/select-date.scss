@@ -1,0 +1,11 @@
+@use '../../styles/variables.scss' as *;
+@use '../../styles/mixins.scss' as *;
+
+
+.sel-date-container {
+  @include flex(center, center, column);
+
+  header {
+    @include header;
+  }
+}

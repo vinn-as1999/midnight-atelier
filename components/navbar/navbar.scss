@@ -1,0 +1,62 @@
+@use '../../styles/variables.scss' as *;
+@use '../../styles/mixins.scss' as *;
+
+
+.home-navbar {
+  @include flex(center, space-between);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  background: rgba(20, 20, 20, 0.5);
+  backdrop-filter: blur(22px);
+  padding: 0 $spacing-lg;
+  font-size: $font-size-sm;
+
+  .bars-container {
+    all: unset;
+    display: none;
+    text-align: center;
+    font-size: $font-size-2xl;
+
+    @include tablet {
+      display: block;
+    }
+
+    svg {
+      cursor: pointer;
+    }
+  }
+
+  .nav-logo {
+    @include flex(center, center);
+    height: 100%;
+    cursor: pointer;
+  }
+
+  .nav-list {
+    @include flex;
+    gap: $spacing-xl;
+    list-style: none;
+    
+    @include tablet {
+      display: none;
+    }
+
+    li {
+      cursor: pointer;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+
+      &:hover {
+        color: $color-primary-hover;
+      }
+    }
+  }
+
+  .book-bttn {
+    @include button;
+  }
+}

@@ -39,6 +39,22 @@
   flex-direction: $direction;
 }
 
+@mixin header {
+  h1 {
+    font-size: $font-size-3xl;
+    font-family: $font-heading;
+    font-weight: 500;
+    font-style: italic;
+  }
+
+  p {
+    width: 70%;
+    margin: 1rem;
+    text-align: center;
+    color: $color-text-muted;
+  }
+}
+
 @mixin title-h2 {
   font-family: $font-heading;
   font-size: $font-size-4xl;
