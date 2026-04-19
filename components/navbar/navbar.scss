@@ -21,7 +21,7 @@
     text-align: center;
     font-size: $font-size-2xl;
 
-    @include tablet {
+    @include mobile-lg {
       display: block;
     }
 
@@ -41,7 +41,7 @@
     gap: $spacing-xl;
     list-style: none;
     
-    @include tablet {
+    @include mobile-lg {
       display: none;
     }
 

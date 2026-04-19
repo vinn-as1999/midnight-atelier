@@ -24,6 +24,11 @@
       gap: $spacing-lg;
       height: 100vh;
 
+      @include mobile-lg {
+        @include flex(center, center, column);
+        width: 100%;
+      }
+
       @include tablet {
         @include flex(center, center, column);
       }
@@ -54,10 +59,12 @@
 
           @include mobile-lg {
             width: 60%;
+            height: 35vh;
           }
 
           @include tablet {
             width: 80%;
+            height: 40vh;
           }
 
           

@@ -3,19 +3,23 @@
 
 
 aside {
-  display: none;
+  display: block;
   position: fixed;
   top: 0;
-  left: -500;
+  left: -100%;
   z-index: 999;
   height: 100%;
   width: 40%;
   background-color: $color-surface-dark;
+  transition: left 0.35s ease-in-out;
 
   @include mobile-lg {
     width: 70vw;
   }
 
+  @include desktop {
+    display: none;
+  }
 
   .close {
     all: unset;
@@ -56,17 +60,5 @@ aside {
 }
 
 .out {
-
-  animation: callAside 0.5s forwards;
-}
-
-
-@keyframes callAside {
-  from {
-    left: -500;
-  } 
-
-  to {
-    left: 0;
-  }
+  left: 0;
 }

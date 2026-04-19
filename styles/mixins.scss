@@ -2,31 +2,31 @@
 
 
 @mixin mobile-lg {
-  @media (max-width: 480px) {
+  @media (max-width: $bp-sm) { // até 480px
     @content;
   }
 }
 
 @mixin tablet {
-  @media (max-width: $bp-md) { // 768px
+  @media (min-width: #{$bp-sm + 1}) and (max-width: $bp-md) { // 481px até 1024px
     @content;
   }
 }
 
 @mixin desktop {
-  @media (max-width: $bp-lg) { // 1024px
+  @media (min-width: #{$bp-md + 1}) and (max-width: $bp-lg) { // 1025px até 1280px
     @content;
   }
 }
 
 @mixin desktop-lg {
-  @media (max-width: $bp-xl) { // 1280px
+  @media (min-width: #{$bp-lg + 1}) and (max-width: $bp-xl) { // 1281px até 1440px
     @content;
   }
 }
 
 @mixin tv {
-  @media (min-width: 1600px) {
+  @media (min-width: #{$bp-xl + 1}) { // 1441px+
     @content;
   }
 }

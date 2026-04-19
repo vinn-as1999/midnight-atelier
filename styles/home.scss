@@ -6,10 +6,12 @@
 
   .main-screen {
     @include flex(center, center, column);
+    align-items: center;
+    text-align: center;
 
     width: 100%;
     min-height: 100dvh;
-    padding: clamp($spacing-md, 3vw, $spacing-2xl);
+    padding: clamp($spacing-lg, 5vw, $spacing-2xl);
 
     background:
       linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
@@ -23,37 +25,30 @@
       font-family: $font-heading;
       font-weight: 500;
       font-style: italic;
-      font-size: 5rem;
-      width: 50%;
+      font-size: clamp(3rem, 7vw, 5rem);
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
       text-align: center;
-
-      @include tablet {
-        width: 100%;
-      }
-
-      @include mobile-lg {
-        width: 100%;
-      }
     }
 
     .main-message {
-      padding: $spacing-md;
+      padding: $spacing-md 0;
       text-align: center;
-      width: 50%;
-
-      @include tablet {
-        width: 90%;
-      }
-
-      @include mobile-lg {
-        width: 100%;
-      }
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
     }
 
     .book-app-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: $spacing-lg;
+
       button {
         @include button;
-        margin: 15px 0;
+        margin: 0;
       }
     }
   }
@@ -70,6 +65,14 @@
     padding: 0 $container-padding;
     margin: 0 auto;
 
+    @include mobile-lg {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "phrase"
+        "paragraph"
+        "services";
+    }
+
     @include tablet {
       grid-template-columns: 1fr;
       grid-template-areas:
@@ -83,9 +86,23 @@
 
       grid-area: phrase;
       margin: $spacing-2xl;
+      width: 100%;
+      max-width: 720px;
 
       > * {
         margin: 10px 0;
+      }
+
+      @include tablet {
+        @include flex(center, end, column);
+        text-align: center;
+        margin: $spacing-xl auto;
+      }
+
+      @include mobile-lg {
+        @include flex(center, center, column);
+        text-align: center;
+        margin: $spacing-lg auto;
       }
     }
 
@@ -96,6 +113,9 @@
       margin: $spacing-2xl;
       color: $color-text-muted;
       text-align: center;
+      width: 100%;
+      max-width: 720px;
+      margin: $spacing-2xl auto;
     }
 
     .services {
@@ -104,21 +124,41 @@
       .serv-list {
         @include flex(stretch, space-between);
         list-style: none;
+        gap: $spacing-lg;
+        width: 100%;
+        justify-content: center;
+
+        @include tablet {
+          @include flex(center, center, column);
+          gap: $spacing-lg;
+        }
 
         @include mobile-lg {
-          @include flex(stretch, space-between, column)
+          @include flex(center, center, column);
+          gap: $spacing-lg;
         }
 
         li {
           position: relative;
           overflow: hidden;
 
-          @include flex(start, space-around, column);
-
-          flex: 1;
-          margin: $spacing-xs;
+          @include flex(start, center, column);
+          width: 100%;
+          max-width: 720px;
+          flex: unset;
+          margin: $spacing-xs auto;
           padding: clamp($spacing-md, 3vw, $spacing-2xl);
-          min-height: 60vh;
+          min-height: auto;
+
+          @include tablet {
+            width: 100%;
+            padding: $spacing-lg;
+          }
+
+          @include mobile-lg {
+            width: 100%;
+            padding: $spacing-md;
+          }
 
           h2 {
             font-family: $font-heading;
@@ -194,7 +234,12 @@
 
     header {
       @include flex(center, center, column);
+      grid-area: header;
       height: 30vh;
+
+      @include tablet {
+        height: 10vh
+      }
     }
 
     h2 {
@@ -203,7 +248,7 @@
 
     span {
       font-size: $font-size-xs;
-      text-align: start
+      text-align: start;
     }
 
     .barbers-list {
@@ -220,6 +265,10 @@
           @include flex(center, center, column);
         }
 
+        @include tablet {
+          @include flex(center, center, column);
+        }
+
         height: 60vh;
         margin: $spacing-sm;
 
@@ -232,6 +281,12 @@
 
           @include mobile-lg {
             width: 45vw;
+            order: -1;
+          }
+
+          @include tablet {
+            width: 45vw;
+            order: -1;
           }
 
           &::before {
@@ -274,7 +329,11 @@
 
           @include mobile-lg {
             @include flex(center, center, column);
+            width: 100%;
+          }
 
+          @include tablet {
+            @include flex(center, center, column);
             width: 100%;
           }
 
