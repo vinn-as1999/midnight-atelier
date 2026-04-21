@@ -1,15 +1,18 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import './calendar.scss';
 
 type CalendarDay = { day: number; isCurrentMonth: boolean };
 
-export default function BarbershopCalendar() {
+type Props = {
+  selectedDate: string | null;
+  setSelectedDate: (date: string) => void;
+};
+
+export default function BarbershopCalendar({selectedDate, setSelectedDate}: Props) {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [monthYear, setMonthYear] = useState<string>('');
-  const [calendarArray, setCalendarArray] = useState<CalendarDay[]>([]);
 
   const months: string[] = [
     "January", "February", "March", "April",
@@ -19,6 +22,9 @@ export default function BarbershopCalendar() {
 
   function changeDayClass(dayObject: CalendarDay): string {
     if (!dayObject.isCurrentMonth) return 'month-day other-month';
+
+    const dayValue = getDateValue(dayObject.day);
+    if (selectedDate === dayValue) return 'selected-day';
     
     const isToday =
       dayObject.day === new Date().getDate() &&
@@ -28,7 +34,15 @@ export default function BarbershopCalendar() {
     return isToday ? 'month-current-day' : 'month-day';
   }
 
-  function getCalendarArray() {
+  function getDateValue(day: number): string {
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const dayValue = String(day).padStart(2, '0');
+
+    return `${year}-${month}-${dayValue}`;
+  }
+
+  function getCalendarData() {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
 
@@ -53,11 +67,13 @@ export default function BarbershopCalendar() {
       calendarDays.push({ day, isCurrentMonth: false });
     }
 
-    setCalendarArray(calendarDays);
-    setMonthYear(`${months[month]} ${year}`);
+    return {
+      calendarArray: calendarDays,
+      monthYear: `${months[month]} ${year}`,
+    };
   }
 
-  useEffect(() => getCalendarArray(), [currentDate]);
+  const { calendarArray, monthYear } = getCalendarData();
 
   function prevMonth() {
     setCurrentDate(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
@@ -93,7 +109,11 @@ export default function BarbershopCalendar() {
 
         <ul className="calendar-days">
           {calendarArray.map((item, index) => (
-            <li key={index} className={changeDayClass(item)}>
+            <li
+              key={index}
+              className={changeDayClass(item)}
+              onClick={() => item.isCurrentMonth && setSelectedDate(getDateValue(item.day))}
+            >
               {String(item.day).padStart(2, '0')}
             </li>
           ))}

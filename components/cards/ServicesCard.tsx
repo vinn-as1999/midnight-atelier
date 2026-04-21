@@ -2,20 +2,33 @@
 
 import './services-card.scss';
 
+type Props = {
+  title: string;
+  description: string;
+  price: number;
+  duration: string;
+  isSelected: boolean;
+  onSelect: () => void;
+};
 
-export default function ServicesCard() {
-  // passar os valores de h2, p e span como props
-
+export default function ServicesCard({
+  title,
+  description,
+  price,
+  duration,
+  isSelected,
+  onSelect,
+}: Props) {
   return (
     <>
-      <section className="serv-card-container">
+      <section className={`serv-card-container ${isSelected ? 'selected' : ''}`} onClick={onSelect}>
         <div className="serv-info">
-          <h2>Haircut</h2>
-          <p>Precision cutting and styling tailored to your head shape. Includes hot towel finish.</p>
+          <h2>{title}</h2>
+          <p>{description}</p>
         </div>
         <div className='serv-number'>
-          <span className='price'>$ 55</span>
-          <span className='duration'>45 min</span>
+          <span className='price'>$ {price}</span>
+          <span className='duration'>{duration}</span>
         </div>
       </section>   
     </>

@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import './aside.scss';
 import { MdOutlineClose } from 'react-icons/md';
+import Link from 'next/link';
 
 
 export default function Aside({isActived, setIsActived}: {isActived: boolean, setIsActived: Dispatch<SetStateAction<boolean>>}) {
@@ -16,10 +17,18 @@ export default function Aside({isActived, setIsActived}: {isActived: boolean, se
         </span>
 
         <ul className='aside-list'>
-          <li>about</li>
-          <li>services</li> 
-          <li>barbers</li>
-          <li>contact</li>
+            <li>
+              <Link href={"#about"}>about</Link>
+            </li>
+            <li>
+              <Link href={"#services"}>services</Link>
+            </li> 
+            <li>
+              <Link href={"#barbers"}>barbers</Link>
+            </li>
+            <li>
+              <Link href={"#contact"}>contact</Link>
+            </li>
         </ul>
       </aside>
     </>

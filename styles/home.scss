@@ -289,33 +289,14 @@
             order: -1;
           }
 
-          &::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            top: 0;
-            left: 0;
-            transition: transform 0.6s ease;
-            z-index: 0;
-          }
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.6s ease;
 
-          &:hover::before {
+          &:hover {
             transform: scale(1.1);
           }
-        }
-
-        #julian::before {
-          background-image: url("/julian-thorne.png");
-          background-size: cover;
-          background-position: center;
-          transition: transform 0.8s ease; 
-        }
-
-        #elias::before {
-          background-image: url("/elias-vance.png");
-          background-size: cover;
-          background-position: center;
-          transition: transform 0.8s ease; 
         }
 
         .barber-info {

@@ -1,11 +1,33 @@
 @use '../../styles/variables.scss' as *;
 @use '../../styles/mixins.scss' as *;
 
-
 .sel-date-container {
   @include flex(center, center, column);
 
+  width: 100%;
+
+  @include mobile-lg {
+    padding: $spacing-sm;
+  }
+
+  @include tablet {
+    padding: $spacing-sm;
+  }
+
   header {
     @include header;
+    text-align: center;
+
+    @include mobile-lg {
+      padding: $spacing-sm 0;
+
+      h1 {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+      }
+    }
+
+    @include tablet {
+      padding: $spacing-md 0;
+    }
   }
 }

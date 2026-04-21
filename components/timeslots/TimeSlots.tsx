@@ -1,8 +1,6 @@
 'use client';
 
-import { useState } from 'react';
 import './timeslots.scss';
-
 
 const AVAILABLE_HOURS = [
   '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
@@ -11,8 +9,12 @@ const AVAILABLE_HOURS = [
 
 const UNAVAILABLE = ['10:00', '11:00', '15:00'];
 
-export default function TimeSlots() {
-  const [selectedHour, setSelectedHour] = useState<string | null>(null);
+type Props = {
+  selectedHour: string | null;
+  setSelectedHour: (hour: string) => void;
+};
+
+export default function TimeSlots({selectedHour, setSelectedHour}: Props) {
 
   function getSlotClass(hour: string): string {
     if (UNAVAILABLE.includes(hour)) return 'slot unavailable';

@@ -11,5 +11,9 @@
   .sel-services-list {
     @include flex(center, center, column);
     list-style: none;
+    
+    li {
+      width: 100%;
+    }
   }
 }

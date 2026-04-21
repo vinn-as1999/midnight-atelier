@@ -3,8 +3,12 @@
 import BarbershopCalendar from '../calendar/BarbershopCalendar';
 import './select-date.scss';
 
+export type Props = {
+  selectedDate: string | null;
+  setSelectedDate: (date: string) => void;
+};
 
-export default function SelectDate() {
+export default function SelectDate({selectedDate, setSelectedDate}: Props) {
 
   return (
     <>
@@ -14,7 +18,7 @@ export default function SelectDate() {
           <h1>Choose your Time</h1>
         </header>
 
-        <BarbershopCalendar />
+        <BarbershopCalendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
       </section>
     </>
   );

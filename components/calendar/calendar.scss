@@ -17,23 +17,47 @@
   border: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: $shadow-lg;
 
+  @include mobile-lg {
+    width: 90%;
+    min-height: auto;
+    padding: $spacing-sm;
+    margin: $spacing-sm 0;
+  }
+
+  @include tablet {
+    width: 100%;
+    padding: $spacing-sm;
+    margin: $spacing-sm auto;
+  }
+
   header {
     display: grid;
     grid-template-columns: 5fr 1fr;
     grid-template-areas: 
       "month bttns"
       "week week";
-    padding: $spacing-sm $spacing-md 0 $spacing-md;
+    padding: $spacing-xs $spacing-sm 0 $spacing-sm;
     width: 100%;
     text-transform: uppercase;
+
+    @include mobile-lg {
+      grid-template-columns: 3fr 1fr;
+      padding: 0 0 0 0;
+      gap: $spacing-xs;
+    }
 
     button {
       all: unset;
       cursor: pointer;
       color: $color-text-muted;
-      padding: 4px 6px;
+      padding: 2px 4px;
       border-radius: $radius-sm;
       transition: color 0.15s, background 0.15s;
+      font-size: $font-size-xs;
+
+      @include mobile-lg {
+        padding: 2px 2px;
+      }
 
       &:hover {
         color: $color-primary;
@@ -48,6 +72,10 @@
       font-size: $font-size-lg;
       display: flex;
       align-items: center;
+
+      @include mobile-lg {
+        font-size: $font-size-sm;
+      }
     }
 
     .bttn-bf {
@@ -63,9 +91,13 @@
       @include flex(center, space-between);
       color: $color-primary;
       list-style-type: none;
-      margin: $spacing-xs 0 4px 0;
+      margin: $spacing-xs 0 2px 0;
       padding: $spacing-xs 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+      @include mobile-lg {
+        margin: 2px 0 2px 0;
+      }
 
       li {
         font-size: $font-size-sm;
@@ -73,6 +105,11 @@
         letter-spacing: 0.08em;
         width: calc(100% / 7);
         text-align: center;
+
+        @include mobile-lg {
+          font-size: 9px;
+          letter-spacing: 0.02em;
+        }
       }
     }
   }
@@ -85,23 +122,39 @@
     grid-template-rows: repeat(6, 1fr);
     gap: 2px;
     width: 100%;
-    padding: $spacing-xs $spacing-sm;
+    padding: $spacing-xs 4px;
+
+    @include mobile-lg {
+      gap: 1px;
+      padding: 4px 2px;
+    }
 
     li {
       text-align: center;
-      padding: $spacing-xs;
+      padding: 4px 0;
       border-radius: $radius-sm;
       cursor: pointer;
       transition: background 0.15s, color 0.15s;
       display: flex;
       align-items: center;
       justify-content: center;
-      aspect-ratio: 1;
+      font-size: $font-size-xs;
+
+      @include mobile-lg {
+        padding: 2px 0;
+        font-size: 10px;
+      }
 
       &:hover:not(.other-month) {
         background: rgba(255, 255, 255, 0.07);
         color: white;
       }
+    }
+
+    .selected-day {
+      background-color: $color-primary;
+      color: black;
+      font-weight: 800;
     }
 
     .month-day {
@@ -121,12 +174,18 @@
       &::after {
         content: "";
         position: absolute;
-        top: 90%;
-        left: 45%;
-        width: 5px;
-        height: 5px;
+        bottom: -2px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 4px;
         border-radius: $radius-full;
         background-color: $color-primary;
+
+        @include mobile-lg {
+          width: 2px;
+          height: 2px;
+        }
       }
     }
   }

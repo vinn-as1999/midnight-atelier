@@ -1,63 +1,129 @@
 @use '../../styles/variables.scss' as *;
 @use '../../styles/mixins.scss' as *;
 
-
 .appointment-main {
   display: grid;
-  grid-template-columns: 2fr 2fr 2fr;
+  grid-template-columns: 1fr 1fr;
   grid-template-areas: 
-    "render hours sheet"
-    "bttn hours sheet"
-    "footer footer footer";
+    "back-bttn back-bttn"
+    "render sheet"
+    "bttn sheet"
+    "footer footer";
   min-height: 100dvh;
   padding-top: $spacing-2xl;
 
-  &.no-hours {
-    grid-template-columns: 2fr 0fr 2fr;
+  @include mobile-lg {
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "back-bttn"
+      "render"
+      "hours"
+      "bttn"
+      "sheet"
+      "footer";
+    justify-items: center;
+  }
+
+  &.with-hours {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: 
+      "back-bttn back-bttn back-bttn"
+      "render hours sheet"
+      "bttn hours sheet"
+      "footer footer footer";
+
+    @include mobile-lg {
+      grid-template-columns: 1fr;
+      grid-template-areas: 
+        "back-bttn"
+        "render"
+        "hours"
+        "bttn"
+        "sheet"
+        "footer";
+      justify-items: center;
+    }
+  }
+
+  .back-bttn {
+    all: unset;
+    @include flex(center, center);
+
+    grid-area: back-bttn;
+    justify-self: start;
+    gap: 10px;
+    padding: $spacing-md;
+    text-transform: uppercase;
+    color: $color-primary;
+    cursor: pointer;
   }
 
   .appointment-render {
     grid-area: render;
+    width: 100%;
 
     &.full-width {
       grid-column: 1 / -1;
     }
   }
-  
+
   .appointment-bttn-container {
-    @include flex();
+    @include flex(center, center);
     width: 100%;
     grid-area: bttn;
 
     &.full-width {
       grid-column: 1 / -1;
     }
-    
+
     button {
       @include button;
       width: 20%;
       text-align: center;
+
+      @include mobile-lg {
+        width: 70%;
+      }
+
+      @include tablet {
+        width: 50%;
+      }
     }
   }
 
   .appointment-sheet {
     @include flex(center, center);
     grid-area: sheet;
-    width: 100%;
-    min-height: 80%;
+    margin: 1em;
+    width: 80%;
 
     &.hidden {
-      visibility: hidden
+      visibility: hidden;
+
+      @include mobile-lg {
+        display: none;
+      }
     }
 
     .sheet {
       @include flex(start, space-between, column);
       background-color: #131212;
-      justify-self: center;
       padding: $spacing-lg;
       color: $font-primary;
-      width: 25vw;
+      width: clamp(260px, 30vw, 420px);
       height: 80vh;
+
+      @include tablet {
+        width: 85%;
+        height: auto;
+        min-height: 50vh;
+      }
+
+      @include mobile-lg {
+        width: 90%;
+        height: auto;
+        min-height: 50vh;
+      }
 
       h1 {
         font-family: $font-heading;
@@ -72,10 +138,10 @@
         list-style: none;
         height: 60%;
         width: 100%;
-        
+
         li {
           @include flex(start, start, column);
-          gap: 5;
+          gap: 5px;
 
           h2 {
             text-transform: uppercase;
@@ -87,7 +153,7 @@
 
           span {
             font-family: $font-heading;
-            font-size: $font-size-xl
+            font-size: $font-size-xl;
           }
         }
 
@@ -96,9 +162,9 @@
           width: 100%;
           color: $color-primary;
           border-top: solid 1px rgb(54, 54, 54);
-          
+
           span {
-            font-size: $font-size-2xl
+            font-size: $font-size-2xl;
           }
         }
       }

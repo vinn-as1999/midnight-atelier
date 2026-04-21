@@ -8,9 +8,12 @@ import { IoMdStar, IoMdStarHalf } from "react-icons/io";
 import { FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { IoLocationOutline } from "react-icons/io5";
 import OptionsController from "@/components/opt-controller/OptionsController";
+import { getBarbers } from "@/lib/barbers";
 
 
-export default function Home() {
+export default async function Home() {
+  const barbers = await getBarbers();
+
   return (
     <main className="home-main">
 
@@ -48,7 +51,7 @@ export default function Home() {
           <p>Each service is more than a cut—it's a curated experience designed to refine your appearance and restore your focus.</p>
         </article>
 
-        <article className="services">
+        <article id="services" className="services">
           <ul className="serv-list">
             <li id="hair">
               <MdFaceUnlock className="icon" />
@@ -84,48 +87,30 @@ export default function Home() {
         </article>
       </section>
 
-      <section className="barbers">
+      <section id="barbers" className="barbers">
         <header>
           <span className="page-tag">meet the artisans</span>
           <h2>The Masters</h2>
         </header>
 
         <ul className="barbers-list">
-          <li>
-            <article className="barber-img" id="julian" />
+          {
+            barbers.map((barber) => (
+              <li>
+                <img src={barber.image} alt={barber.name} className="barber-img" />
 
-            <article className="barber-info">
-              <span className="page-tag">lead barber</span>
-              <h3>Julian Thorne</h3>
-              <p>
-                "Grooming is a form of architecture. It's about finding the balance between tradition and the individual's character."
-              </p>
-
-              <button>
-                <PiScroll className="icon" />
-              </button>
-            </article>
-          </li>
-
-          <li>
-            <article className="barber-info">
-              <span className="page-tag">master stylist</span>
-              <h3>Elias Vance</h3>
-              <p>
-                "I don't just cut hair; I craft confidence. Every client leaves the chair feeling like the best version of themselves."
-              </p>
-
-              <button>
-                <PiScroll className="icon" />
-              </button>
-            </article>
-
-            <article className="barber-img" id="elias" />
-          </li>
+                <article className="barber-info">
+                  <span className="page-tag">{barber.tag}</span>
+                  <h3>{barber.name}</h3>
+                  <p>{barber.phrase}</p>
+                </article>
+              </li>
+            ))
+          }
         </ul>
       </section>
 
-      <section className="about-container">
+      <section id="about" className="about-container">
         <article className="about-img" />
 
         <button className="about-bttn">

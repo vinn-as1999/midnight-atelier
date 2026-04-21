@@ -13,8 +13,17 @@
   background-color: $color-surface-dark;
   cursor: pointer;
 
+  @include mobile-lg {
+    width: 90%;
+  }
+
   &:hover {
     background-color: $color-surface-light;
+  }
+
+  &.selected {
+    background-color: $color-surface-light;
+    outline: 1px solid $color-primary;
   }
 
   .serv-info {

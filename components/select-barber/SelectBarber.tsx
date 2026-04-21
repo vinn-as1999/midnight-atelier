@@ -1,11 +1,24 @@
 'use client';
 
-import { IoMdStar, IoMdStarHalf } from 'react-icons/io';
+import { IoMdStar } from 'react-icons/io';
 import Image from 'next/image';
 import './select-barber.scss';
+import { Barber } from '@/types/client-types';
 
+type Props = {
+  captalize: (name: string) => string;
+  barbers: Barber[];
+  selectedBarberId: string | null;
+  setSelectedBarberId: (barberId: string) => void;
+};
 
-export default function SelectBarber() {
+export default function SelectBarber({
+  captalize,
+  barbers,
+  selectedBarberId,
+  setSelectedBarberId,
+}: Props) {
+  
   return (
     <>
       <section className="sel-barber-container">
@@ -19,7 +32,35 @@ export default function SelectBarber() {
 
         <article className='b-list-container'>
           <ul className="barber-list">
-            <li>
+            {
+              barbers?.map((barber) => (
+                <li
+                  key={barber.id}
+                  className={selectedBarberId === barber.id ? 'selected' : ''}
+                  onClick={() => setSelectedBarberId(barber.id)}
+                >
+                  <div className="barber-img">
+                    <Image alt='Barber Photo' fill src={barber.image} />
+                  </div>
+
+                  <article className='barber-info'>
+                    <h3>{captalize(barber.name)}</h3>
+                    <div className="reviews">
+                      <span className="number">5.0</span>
+                      <span className="stars">
+                        <IoMdStar />
+                        <IoMdStar />
+                        <IoMdStar />
+                        <IoMdStar />
+                        <IoMdStar />
+                      </span>
+                    </div>
+                    <p>{barber.description}</p>
+                  </article>
+                </li>
+              ))
+            }
+            {/* <li>
               <div className="barber-img">
                 <Image alt='Barber Photo' fill src={"/julian-color.png"} />
               </div>
@@ -59,7 +100,7 @@ export default function SelectBarber() {
                 </div>
                 <p>Specialist in surgical fades and architectural modern silhouettes.</p>
               </article>
-            </li>
+            </li> */}
           </ul>
         </article>
       </section>

@@ -2,9 +2,20 @@
 
 import ServicesCard from '../cards/ServicesCard';
 import './select-service.scss';
+import { Service } from '@/types/client-types';
 
+type Props = {
+  services: Service[];
+  selectedServiceId: string | null;
+  setSelectedServiceId: (serviceId: string) => void;
+};
 
-export default function SelectService() {
+export default function SelectService({
+  services,
+  selectedServiceId,
+  setSelectedServiceId,
+}: Props) {
+  
   return (
     <>
       <section className="sel-services-container">
@@ -18,16 +29,18 @@ export default function SelectService() {
 
         <article className="sel-services-cards">
           <ul className="sel-services-list">
-            <li>
-              <ServicesCard />
-            </li>
-
-            <li>
-              <ServicesCard />
-            </li>
-            <li>
-              <ServicesCard />
-            </li>
+            {services.map((service) => (
+              <li key={service.id}>
+                <ServicesCard
+                  title={service.name}
+                  description={service.description}
+                  price={service.price}
+                  duration={service.duration}
+                  isSelected={selectedServiceId === service.id}
+                  onSelect={() => setSelectedServiceId(service.id)}
+                />
+              </li>
+            ))}
           </ul>
         </article>
       </section>
