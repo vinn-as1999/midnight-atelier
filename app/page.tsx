@@ -1,7 +1,6 @@
-import Image from "next/image";
 import Footer from "@/components/footer/Footer";
 import { MdFaceUnlock, MdStarBorderPurple500 } from "react-icons/md";
-import { PiScissorsLight, PiScroll } from "react-icons/pi";
+import { PiScissorsLight } from "react-icons/pi";
 import Link from "next/link";
 import '../styles/home.scss';
 import { IoMdStar, IoMdStarHalf } from "react-icons/io";
@@ -9,6 +8,7 @@ import { FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { IoLocationOutline } from "react-icons/io5";
 import OptionsController from "@/components/opt-controller/OptionsController";
 import { getBarbers } from "@/lib/barbers";
+import Image from "next/image";
 
 
 export default async function Home() {
@@ -48,7 +48,7 @@ export default async function Home() {
         </article>
 
         <article className="services-paragraph">
-          <p>Each service is more than a cut—it's a curated experience designed to refine your appearance and restore your focus.</p>
+          <p>Each service is more than a cut, it&apos;s a curated experience designed to refine your appearance and restore your focus.</p>
         </article>
 
         <article id="services" className="services">
@@ -96,8 +96,14 @@ export default async function Home() {
         <ul className="barbers-list">
           {
             barbers.map((barber) => (
-              <li>
-                <img src={barber.image} alt={barber.name} className="barber-img" />
+              <li key={barber.id}>
+                <Image
+                  src={barber.image}
+                  alt={barber.name}
+                  className="barber-img"
+                  width={360}
+                  height={420}
+                />
 
                 <article className="barber-info">
                   <span className="page-tag">{barber.tag}</span>

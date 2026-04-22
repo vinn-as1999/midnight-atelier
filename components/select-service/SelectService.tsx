@@ -4,21 +4,35 @@ import ServicesCard from '../cards/ServicesCard';
 import './select-service.scss';
 import { Service } from '@/types/client-types';
 
+import ErrorMessage from '../error/ErrorMessage';
+
 type Props = {
   services: Service[];
   selectedServiceId: string | null;
   setSelectedServiceId: (serviceId: string) => void;
+  serverMessage: string | null;
+  setServerMessage: (message: string | null) => void;
+  isError: boolean;
 };
 
 export default function SelectService({
   services,
   selectedServiceId,
   setSelectedServiceId,
+  serverMessage,
+  setServerMessage,
+  isError,
 }: Props) {
   
   return (
     <>
       <section className="sel-services-container">
+        {
+          serverMessage 
+            ? <ErrorMessage message={serverMessage} isError={isError} /> 
+            : null
+        }
+
         <header>
           <span className="page-tag">the mastery of the blades</span>
           <h1>Select Services</h1>
@@ -37,7 +51,10 @@ export default function SelectService({
                   price={service.price}
                   duration={service.duration}
                   isSelected={selectedServiceId === service.id}
-                  onSelect={() => setSelectedServiceId(service.id)}
+                  onSelect={() => {
+                    setServerMessage(null);
+                    setSelectedServiceId(service.id);
+                  }}
                 />
               </li>
             ))}

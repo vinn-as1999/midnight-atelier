@@ -7,7 +7,7 @@ export default function Footer() {
       <section className='footer-container'>
         <article className='footer-name'>
           <h1>the midnight atelier</h1>
-          <span>A cinematic sanctuary for the modern gentleman's grooming needs.</span>
+          <span>A cinematic sanctuary for the modern gentleman&apos;s grooming needs.</span>
         </article>
 
         <article className='footer-list'>

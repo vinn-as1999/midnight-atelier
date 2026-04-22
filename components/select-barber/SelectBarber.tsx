@@ -5,11 +5,16 @@ import Image from 'next/image';
 import './select-barber.scss';
 import { Barber } from '@/types/client-types';
 
+import ErrorMessage from '../error/ErrorMessage';
+
 type Props = {
   captalize: (name: string) => string;
   barbers: Barber[];
   selectedBarberId: string | null;
   setSelectedBarberId: (barberId: string) => void;
+  serverMessage: string | null;
+  setServerMessage: (message: string | null) => void;
+  isError: boolean;
 };
 
 export default function SelectBarber({
@@ -17,10 +22,19 @@ export default function SelectBarber({
   barbers,
   selectedBarberId,
   setSelectedBarberId,
+  serverMessage,
+  setServerMessage,
+  isError,
 }: Props) {
   
   return (
     <>
+      {
+        serverMessage 
+          ? <ErrorMessage message={serverMessage} isError={isError} />
+          : null
+      }
+      
       <section className="sel-barber-container">
         <header>
           <span className="page-tag">the heritage guild</span>
@@ -37,7 +51,10 @@ export default function SelectBarber({
                 <li
                   key={barber.id}
                   className={selectedBarberId === barber.id ? 'selected' : ''}
-                  onClick={() => setSelectedBarberId(barber.id)}
+                  onClick={() => {
+                    setServerMessage(null);
+                    setSelectedBarberId(barber.id);
+                  }}
                 >
                   <div className="barber-img">
                     <Image alt='Barber Photo' fill src={barber.image} />
@@ -60,47 +77,6 @@ export default function SelectBarber({
                 </li>
               ))
             }
-            {/* <li>
-              <div className="barber-img">
-                <Image alt='Barber Photo' fill src={"/julian-color.png"} />
-              </div>
-
-              <article className="barber-info">
-                <h3>Julian Thorne</h3>
-                <div className="reviews">
-                  <span className='number'>5.0</span>
-                  <span className="stars">
-                    <IoMdStar />
-                    <IoMdStar />
-                    <IoMdStar />
-                    <IoMdStar />
-                    <IoMdStar />
-                  </span>
-                </div>
-                <p>Master of heritage scissoring and traditional straight-razor therapy.</p>
-              </article>
-            </li>
-
-            <li>
-              <div className="barber-img">
-                <Image alt='Barber Photo' fill src={"/elias-color.png"} />
-              </div>
-
-              <article className="barber-info">
-                <h3>Elias Vance</h3>
-                <div className="reviews">
-                  <span className='number'>4.9</span>
-                  <span className="stars">
-                    <IoMdStar />
-                    <IoMdStar />
-                    <IoMdStar />
-                    <IoMdStar />
-                    <IoMdStarHalf />
-                  </span>
-                </div>
-                <p>Specialist in surgical fades and architectural modern silhouettes.</p>
-              </article>
-            </li> */}
           </ul>
         </article>
       </section>

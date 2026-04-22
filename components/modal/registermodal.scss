@@ -1,0 +1,98 @@
+// components/register-modal/RegisterModal.scss
+@use '@/styles/variables.scss' as *;
+@use '@/styles/mixins.scss' as *;
+
+.register-modal-overlay {
+  position: fixed;
+  text-align: center;
+  inset: 0;
+  z-index: $z-modal;
+  background: rgba(0, 0, 0, 0.75);
+  width: 100vw;
+  height: 100vh;
+
+  @include flex(center, center);
+
+  .register-modal {
+    position: relative;
+    background: $color-surface;
+    border: 1px solid $color-border;
+    padding: $spacing-xl;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: $shadow-lg;
+
+    .modal-message {
+      margin-bottom: $spacing-md;
+      padding: $spacing-sm $spacing-md;
+      border: 1px solid;
+      border-radius: $radius-sm;
+      text-align: left;
+
+      &.error {
+        border-color: $color-error;
+        background: rgba(220, 38, 38, 0.1);
+        color: $color-error;
+      }
+
+      &.success {
+        border-color: $color-success;
+        background: rgba(16, 185, 129, 0.12);
+        color: $color-success;
+      }
+
+      p {
+        margin: 0;
+      }
+    }
+
+    @include mobile-lg {
+      margin: 0 $spacing-md;
+    }
+
+    .icon {
+      position: absolute;
+      top: 3%;
+      left: 85%;
+      cursor: pointer;
+    }
+
+    h2 {
+      font-family: $font-heading;
+      font-size: $font-size-xl;
+      margin-bottom: $spacing-lg;
+    }
+
+    .modal-fields {
+      @include flex(stretch, center, column);
+      gap: $spacing-sm;
+      margin-bottom: $spacing-lg;
+
+      input {
+        background: $color-surface-light;
+        border: 1px solid $color-border;
+        border-radius: $radius-sm;
+        color: $color-text;
+        font-size: $font-size-md;
+        padding: $spacing-sm $spacing-md;
+        transition: border-color $transition-fast;
+
+        &::placeholder {
+          color: $color-text-muted;
+        }
+
+        &:focus {
+          outline: none;
+          border-color: $color-primary;
+        }
+      }
+    }
+
+    button {
+      @include button;
+      text-align: center;
+      width: 90%;
+      margin: 0;
+    }
+  }
+}

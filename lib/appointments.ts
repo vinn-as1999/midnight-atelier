@@ -8,6 +8,8 @@ export async function createAppointment(payload: CreateAppointmentDTO): Promise<
   const { error } = await supabase
     .from("appointments")
     .insert(payload);
+
+  console.log('o erro', error)
   
   if (error) return { message: "Error creating appointment", success: false }
 
