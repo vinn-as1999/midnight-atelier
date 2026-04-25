@@ -28,9 +28,9 @@ export default function ServicesCard({
         </div>
         <div className='serv-number'>
           <span className='price'>$ {price}</span>
-          <span className='duration'>{duration}</span>
+          <span className='duration'>{duration} min</span>
         </div>
-      </section>   
+      </section>
     </>
   )
 };

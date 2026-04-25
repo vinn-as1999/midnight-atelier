@@ -86,6 +86,25 @@
           border-color: $color-primary;
         }
       }
+
+      .modal-gender-options {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: $spacing-sm;
+
+        button {
+          width: 100%;
+          background: $color-surface-light;
+          border: 1px solid $color-border;
+          color: $color-text;
+
+          &.selected {
+            background: $color-primary;
+            border-color: $color-primary;
+            color: $color-background;
+          }
+        }
+      }
     }
 
     button {

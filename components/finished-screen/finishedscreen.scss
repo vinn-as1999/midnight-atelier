@@ -1,0 +1,95 @@
+@use '../../styles/variables.scss' as *;
+@use '../../styles/mixins.scss' as *;
+
+
+.finished-container {
+  @include flex(center, center, column);
+  position: relative;
+
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: $spacing-2xl $container-padding;
+  height: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('/barbershop-inside.png') center/cover no-repeat;
+    opacity: 0.05;
+    z-index: 0;
+  }
+
+  // garante que o conteúdo fique acima do fundo
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  header { @include header; }
+
+  p {
+    width: clamp(20ch, 70vw, 50ch);
+    text-transform: uppercase;
+    text-align: center;
+    color: $color-text-muted;
+    margin: 2em;
+  }
+
+  .finish-div {
+    @include flex(center, center, column);
+    margin: 3em;
+
+    span {
+      color: #8D8572;
+      font-weight: $font-weight-bold;
+      text-transform: uppercase;
+      font-size: $font-size-md;
+    }
+
+    p {
+      @include flex(center, center);
+      margin: 5px;
+      gap: 5;
+      font-size: $font-size-lg;
+      text-transform: none;
+
+      svg {color: $color-primary}
+    }
+  }
+
+  .bttn-container {
+    @include flex(center, center);
+    width: 100%;
+    height: 20%;
+    margin: 2em;
+
+    button {
+      @include flex(center, center);
+      padding: 1.5em;
+      gap: 8;
+      font-size: $font-size-md;
+      text-transform: uppercase;
+      background-color: $color-primary;
+      color: #3C2F00;
+      font-weight: $font-weight-bold;
+      border: none;
+      cursor: pointer;
+      border-radius: $radius-sm;
+      box-shadow: 1 1 50 #574819;
+
+      &:hover {
+        box-shadow: 1 1 50 #836c27;
+      }
+    }
+  }
+
+  .apptm-card-container {
+    @include flex(center, center);
+    width: 100%;
+    margin: $spacing-lg auto 0;
+  }
+}

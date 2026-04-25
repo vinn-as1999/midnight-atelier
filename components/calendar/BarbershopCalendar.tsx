@@ -4,6 +4,7 @@ import { useState } from "react";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import './calendar.scss';
 
+
 type CalendarDay = { day: number; isCurrentMonth: boolean };
 
 type Props = {
@@ -13,6 +14,10 @@ type Props = {
 
 export default function BarbershopCalendar({selectedDate, setSelectedDate}: Props) {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const today = new Date();
+  const isCurrentMonth =
+    currentDate.getFullYear() === today.getFullYear() &&
+    currentDate.getMonth() === today.getMonth();
 
   const months: string[] = [
     "January", "February", "March", "April",
@@ -23,15 +28,18 @@ export default function BarbershopCalendar({selectedDate, setSelectedDate}: Prop
   function changeDayClass(dayObject: CalendarDay): string {
     if (!dayObject.isCurrentMonth) return 'month-day other-month';
 
+    today.setHours(0, 0, 0, 0);
+
+    const dayDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), dayObject.day);
+
     const dayValue = getDateValue(dayObject.day);
     if (selectedDate === dayValue) return 'selected-day';
-    
-    const isToday =
-      dayObject.day === new Date().getDate() &&
-      currentDate.getMonth() === new Date().getMonth() &&
-      currentDate.getFullYear() === new Date().getFullYear();
 
-    return isToday ? 'month-current-day' : 'month-day';
+    if (dayDate.getTime() === today.getTime()) return 'month-current-day';
+
+    if (dayDate < today) return 'past-month-day';
+
+    return 'month-day';
   }
 
   function getDateValue(day: number): string {
@@ -83,13 +91,31 @@ export default function BarbershopCalendar({selectedDate, setSelectedDate}: Prop
     setCurrentDate(prev => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
   }
 
+  function verifyMonth(item: CalendarDay) {
+    if (!item.isCurrentMonth) {
+      const isPrev = item.day > 15;
+      isPrev ? prevMonth() : nextMonth();
+
+      const targetMonth = isPrev
+        ? new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1)
+        : new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
+
+      const year = targetMonth.getFullYear();
+      const month = String(targetMonth.getMonth() + 1).padStart(2, '0');
+      const day = String(item.day).padStart(2, '0');
+      setSelectedDate(`${year}-${month}-${day}`);
+      return;
+    }
+    setSelectedDate(getDateValue(item.day));
+  }
+
   return (
     <>
       <article className="calendar-container">
         <header className="calendar-header">
           <div className="month-info">{monthYear}</div>
           <div className="bttn-bf">
-            <button onClick={prevMonth}>
+            <button disabled={isCurrentMonth} onClick={prevMonth}>
               <MdKeyboardArrowLeft />
             </button>
             <button onClick={nextMonth}>
@@ -112,7 +138,7 @@ export default function BarbershopCalendar({selectedDate, setSelectedDate}: Prop
             <li
               key={index}
               className={changeDayClass(item)}
-              onClick={() => item.isCurrentMonth && setSelectedDate(getDateValue(item.day))}
+              onClick={() => verifyMonth(item)}
             >
               {String(item.day).padStart(2, '0')}
             </li>

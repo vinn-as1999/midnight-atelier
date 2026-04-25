@@ -1,9 +1,8 @@
-import { Session } from "@supabase/supabase-js";
-
 export enum AppointmentStatus {
   Barber = "barber",
   Service = "service",
-  Date = "date"
+  Date = "date",
+  Finish = "finish"
 }
 
 export type Barber = {
@@ -26,6 +25,7 @@ export type Service = {
 export interface CreateAppointmentDTO {
   barber_id: string;
   service_id: string;
+  client_id: string;
   date: string;
   hour: string;
   total: number;
@@ -36,7 +36,20 @@ export interface Appointment extends CreateAppointmentDTO {
   client_id: string;
 }
 
-export type ServerResponse<T = Session | null> = {
+export type StoredAppointment = {
+  date: string;
+  hour: string;
+  service: string;
+}
+
+export type Client = {
+  id: string;
+  name: string;
+  email: string;
+  gender: boolean;
+}
+
+export type ServerResponse<T = null> = {
   message: string;
   success: boolean;
   data?: T;
@@ -45,4 +58,5 @@ export type ServerResponse<T = Session | null> = {
 export type RegisterPayload = {
   name: string;
   email: string;
+  gender: boolean;
 }

@@ -84,6 +84,16 @@
       align-items: center;
       justify-content: flex-end;
       gap: 2px;
+
+      svg {
+        font-size: $font-size-lg;
+      }
+
+      button:disabled {
+        cursor: default;
+        pointer-events: none;
+        color: rgb(65, 65, 65);
+      }
     }
 
     .week-list {
@@ -145,7 +155,7 @@
         font-size: 10px;
       }
 
-      &:hover:not(.other-month) {
+      &:hover:not(.other-month, .past-month-day) {
         background: rgba(255, 255, 255, 0.07);
         color: white;
       }
@@ -161,32 +171,20 @@
       color: $color-text;
     }
 
-    .month-day.other-month {
+    .month-day.other-month, .past-month-day {
       color: rgba(255, 255, 255, 0.18);
       cursor: default;
+    }
+
+    .past-month-day {
+      pointer-events: none;
     }
 
     .month-current-day {
       @include flex(center, center, column);
       position: relative;
       color: $color-primary;
-
-      &::after {
-        content: "";
-        position: absolute;
-        bottom: -2px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 4px;
-        height: 4px;
-        border-radius: $radius-full;
-        background-color: $color-primary;
-
-        @include mobile-lg {
-          width: 2px;
-          height: 2px;
-        }
-      }
+      font-size: $font-size-md;
     }
   }
 }

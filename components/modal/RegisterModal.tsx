@@ -5,7 +5,7 @@ import './registermodal.scss';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { RegisterPayload } from '@/types/client-types';
 import { validateEmail, validateString } from '@/app/utils/validateStr';
-import { createSession } from '@/lib/auth';
+import { saveClient } from '@/lib/auth';
 
 type Props = {
   sendRequest: () => void;
@@ -26,7 +26,7 @@ export default function RegisterModal({
 }: Props) {
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
-  const [emailSent, setEmailSent] = useState<boolean>(false);
+  const [gender, setGender] = useState<boolean | null>(null);
 
   async function sendData() {
     const sanitizedName = name.trim();
@@ -44,12 +44,19 @@ export default function RegisterModal({
       return;
     }
 
+    if (gender === null) {
+      setServerMessage('Please select a gender.');
+      setIsError(true);
+      return;
+    }
+
     const payload: RegisterPayload = {
       name: sanitizedName,
-      email: sanitizedEmail
+      email: sanitizedEmail,
+      gender,
     };
 
-    const response = await createSession(payload);
+    const response = saveClient(payload);
 
     setServerMessage(response.message);
     setIsError(!response.success);
@@ -58,7 +65,8 @@ export default function RegisterModal({
       return;
     }
 
-    setEmailSent(true);
+    setRegisterModal(false);
+    sendRequest();
   };
 
   return (
@@ -72,39 +80,46 @@ export default function RegisterModal({
           </div>
         ) : null}
 
-        {!emailSent ? (
-          <>
-            <h2>Register your data</h2>
-            <div className="modal-fields">
-              <label className="page-tag">Full name</label>
-              <input
-                type="text"
-                placeholder="John Taylor"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
+        <>
+          <h2>Register your data</h2>
+          <div className="modal-fields">
+            <label className="page-tag">Full name</label>
+            <input
+              type="text"
+              placeholder="John Taylor"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
 
-              <label className="page-tag">Email</label>
-              <input
-                type="email"
-                placeholder="john_taylor@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+            <label className="page-tag">Email</label>
+            <input
+              type="email"
+              placeholder="john_taylor@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+
+            <label className="page-tag">Gender</label>
+            <div className="modal-gender-options">
+              <button
+                type="button"
+                className={gender === true ? 'selected' : ''}
+                onClick={() => setGender(true)}
+              >
+                Male
+              </button>
+              <button
+                type="button"
+                className={gender === false ? 'selected' : ''}
+                onClick={() => setGender(false)}
+              >
+                Female
+              </button>
             </div>
+          </div>
 
-            <button onClick={sendData}>Send magic link</button>
-          </>
-        ) : (
-          <>
-            <h2>Check your email</h2>
-            <div className="modal-fields">
-              <p>We&apos;ve sent a secure sign-in link to your email. Open it to authenticate with Supabase and then come back here to finish the appointment.</p>
-            </div>
-
-            <button onClick={sendRequest}>I already opened the link</button>
-          </>
-        )}
+          <button onClick={sendData}>Save and continue</button>
+        </>
       </section>
     </div>
   )

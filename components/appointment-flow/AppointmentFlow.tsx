@@ -4,31 +4,40 @@ import Footer from "@/components/footer/Footer";
 import SelectBarber from "@/components/select-barber/SelectBarber";
 import SelectDate from "@/components/select-date/SelectDate";
 import SelectService from "@/components/select-service/SelectService";
-import { AppointmentStatus, Barber, CreateAppointmentDTO, ServerResponse, Service } from "@/types/client-types";
-import { useEffect, useState } from "react";
+import { AppointmentStatus, Barber, CreateAppointmentDTO, Service } from "@/types/client-types";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import TimeSlots from "@/components/timeslots/TimeSlots";
 import { FaArrowLeft } from "react-icons/fa";
-import { Session } from "@supabase/supabase-js";
 import { createAppointment } from "@/lib/appointments";
 import RegisterModal from "@/components/modal/RegisterModal";
-import supabase from "@/lib/db";
+import { ensureClientExists, getStoredClient } from "@/lib/auth";
+import FinishedScreen from "../finished-screen/FinishedScreen";
+import { saveStoredAppointment } from "@/lib/appointment-storage";
 
 
 type Props = {
   barbers: Barber[];
   services: Service[];
-  session: Session | null;
 }
 
-export default function AppointmentFlow({barbers, services, session}: Props) {
+export default function AppointmentFlow({barbers, services}: Props) {
   const [appointmentStatus, setAppointmentStatus] = useState<AppointmentStatus>(AppointmentStatus.Barber);
   const [serverMessage, setServerMessage] = useState<string | null>(null);
   const [isError, setIsError] = useState<boolean>(true);
-  const [currentSession, setCurrentSession] = useState<Session | null>(session);
 
-  const condition = appointmentStatus === AppointmentStatus.Barber ? 'full-width' : '';
-  const condition2 = appointmentStatus === AppointmentStatus.Barber ? 'hidden' : '';
+  const isFullWidth =
+    appointmentStatus === AppointmentStatus.Barber ||
+    appointmentStatus === AppointmentStatus.Finish;
+  const condition = isFullWidth ? 'full-width' : '';
+
+  const isHidden = 
+    appointmentStatus === AppointmentStatus.Barber || 
+    appointmentStatus === AppointmentStatus.Finish;
+  const condition2 = isHidden ? 'hidden' : '';
+
+  const renderBttnCondition = appointmentStatus !== AppointmentStatus.Date && appointmentStatus !== AppointmentStatus.Finish;
+
   const router = useRouter();
 
   const [selectedBarberId, setSelectedBarberId] = useState<string | null>(null);
@@ -39,25 +48,6 @@ export default function AppointmentFlow({barbers, services, session}: Props) {
 
   const selectedBarber = barbers.find((barber) => barber.id === selectedBarberId) ?? null;
   const selectedService = services.find((service) => service.id === selectedServiceId) ?? null;
-
-  useEffect(() => {
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setCurrentSession(session);
-
-      if (session) {
-        setRegisterModal(false);
-        setServerMessage("Email confirmed successfully. You can finish your appointment now.");
-        setIsError(false);
-        router.refresh();
-      }
-    });
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [router]);
 
 
   function formatDate(date: string | null): string {
@@ -93,6 +83,10 @@ export default function AppointmentFlow({barbers, services, session}: Props) {
         setAppointmentStatus(AppointmentStatus.Service);
         break;
 
+      case AppointmentStatus.Finish:
+        router.back();
+        break;
+
       default:
         break;
     }
@@ -117,6 +111,7 @@ export default function AppointmentFlow({barbers, services, session}: Props) {
       case AppointmentStatus.Service:
         return (
           <SelectService
+            captalize={captalize}
             serverMessage={serverMessage}
             setServerMessage={setServerMessage}
             services={services}
@@ -128,13 +123,18 @@ export default function AppointmentFlow({barbers, services, session}: Props) {
 
       case AppointmentStatus.Date:
         return ( 
-          <SelectDate 
+          <SelectDate
             serverMessage={serverMessage}
             setServerMessage={setServerMessage}
             isError={isError}
             selectedDate={selectedDate} 
             setSelectedDate={setSelectedDate} 
           />
+        );
+
+      case AppointmentStatus.Finish:
+        return (
+          <FinishedScreen />
         );
 
       default:
@@ -172,7 +172,6 @@ export default function AppointmentFlow({barbers, services, session}: Props) {
           setIsError(true);
           return;
         }
-        sendRequest();
         break;
         
       default:
@@ -181,9 +180,8 @@ export default function AppointmentFlow({barbers, services, session}: Props) {
   };
 
 
-  async function sendRequest(sessionOverride?: Session | null) {
-    const activeSession = sessionOverride ?? currentSession;
-
+  async function sendRequest() {
+    const storedClient = getStoredClient();
     console.log('called')
     if (!selectedBarberId || !selectedServiceId || !selectedDate || !selectedHour) {
       if (!selectedBarberId) {
@@ -197,15 +195,24 @@ export default function AppointmentFlow({barbers, services, session}: Props) {
       return;
     }
 
-    if (!activeSession) {
+    if (!storedClient) {
       console.log('caiu aqui')
       setRegisterModal(true);
+      return;
+    }
+
+    const clientResponse = await ensureClientExists(storedClient);
+
+    if (!clientResponse.success) {
+      setServerMessage(clientResponse.message);
+      setIsError(true);
       return;
     }
 
     const payload: CreateAppointmentDTO = {
       barber_id: selectedBarberId,
       service_id: selectedServiceId,
+      client_id: storedClient.id,
       date: selectedDate,
       hour: selectedHour,
       total: selectedService?.price ?? 0,
@@ -219,7 +226,15 @@ export default function AppointmentFlow({barbers, services, session}: Props) {
       setServerMessage(response.message);
       setIsError(!response.success);
     }
-    console.log('resposta: ', response.message)
+
+    saveStoredAppointment({
+      date: selectedDate,
+      hour: selectedHour,
+      service: selectedService?.name ? captalize(selectedService.name) : "Service not informed",
+    });
+    
+    setAppointmentStatus(AppointmentStatus.Finish);
+    setIsError(false);
   };
 
 
@@ -227,6 +242,7 @@ export default function AppointmentFlow({barbers, services, session}: Props) {
     [AppointmentStatus.Barber]: "Go to services",
     [AppointmentStatus.Service]: "appointment date",
     [AppointmentStatus.Date]: "Finish appointment",
+    [AppointmentStatus.Finish]: "Finished"
   };
 
   return (
@@ -246,7 +262,7 @@ export default function AppointmentFlow({barbers, services, session}: Props) {
 
       <section className={`appointment-bttn-container ${condition}`}>
         {
-          appointmentStatus !== AppointmentStatus.Date && <button onClick={switchRender}>
+          renderBttnCondition && <button onClick={switchRender}>
             {buttonLabels[appointmentStatus] ?? "Back to Home"}
           </button>
         }
@@ -258,7 +274,7 @@ export default function AppointmentFlow({barbers, services, session}: Props) {
           <ul className="sheet-list">
             <li>
               <h2>service</h2>
-              <span>{selectedService?.name ?? 'Select a service'}</span>
+              <span>{selectedService?.name ? captalize(selectedService.name) : 'Select a service'}</span>
             </li>
 
             <li>
