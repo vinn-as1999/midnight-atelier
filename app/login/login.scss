@@ -1,0 +1,129 @@
+@use '../../styles/variables.scss' as *;
+@use '../../styles/mixins.scss' as *;
+
+
+.login-container {
+  @include flex(center, center, column);
+
+  width: 100vw;
+  height: 100dvh;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("/beard-serv.png") center/cover no-repeat;
+    opacity: 0.1;
+    filter: grayscale(50%);
+    z-index: 0;
+    width: 100%;
+    height: 100%
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  header {
+    @include flex(center, center, column);
+
+    h1 {
+      font-family: $font-heading;
+      font-size: $font-size-2xl;
+      text-transform: uppercase;
+      color: $color-primary;
+      width: 80%;
+      text-shadow: 
+        0 0 20px
+        $color-discreet-clarity;
+      text-align: center;
+    }
+
+    span {
+      color: $color-discreet-clarity;
+      font-size: $font-size-sm
+    }
+  }
+
+  .form-container {
+    @include flex(center, center, column);
+
+    background-color: $color-surface-light;
+    width: 25rem;
+    height: 25rem;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: $radius-md;
+
+    h1 {
+      font-family: $font-heading;
+      font-weight: 500;
+    }
+
+    form {
+      @include flex(start, center, column);
+      width: 90%;
+      gap: 10px;
+
+      label {
+        text-transform: uppercase;
+        color: $color-discreet-clarity;
+        font-size: $font-size-sm;
+        margin: 5px 0;
+      }
+
+      .form-options {
+        @include flex(center, space-between);
+        width: 100%;
+      }
+
+      input {
+        all: unset;
+        box-sizing: border-box;
+        width: 100%;
+        height: 3rem;
+        background-color: $color-surface-dark;
+        padding: 1rem;
+      }
+
+      div {
+        @include flex(center, center);
+        gap: 10;
+
+        span {
+          color: $color-discreet-clarity;
+          text-transform: uppercase;
+          font-size: 12px;
+
+          &:hover {
+            color: $color-primary-hover;
+            cursor: pointer;
+          }
+        }
+      }
+
+      input[type="checkbox"] {
+        appearance: none;
+        border-radius: $radius-full;
+        width: 5px;
+        height: 5px;
+        transform: scale(0.7);
+        accent-color: $color-primary;
+        cursor: pointer;
+
+        &:checked {
+          background-color: $color-primary;
+        }
+      }
+
+      button {
+        @include button;
+
+        text-align: center;
+        align-self: center;
+        width: 90%;
+      }
+    }
+  }
+}
