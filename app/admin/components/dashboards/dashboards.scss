@@ -1,0 +1,86 @@
+@use '../../../../styles/variables.scss' as *;
+@use '../../../../styles/mixins.scss' as *;
+
+
+.dashboards-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas: 
+    "header header"
+    "cards cards"
+    "recent perf";
+  width: 80vw;
+  min-height: 100dvh;
+  padding: 1em;
+
+  @include tablet {
+    width: 100vw;
+  }
+
+  @include mobile-lg {
+    width: 100vw;
+  }
+
+  header {
+    grid-area: header;
+    margin: 1em;
+
+    h1 {
+      font-family: $font-heading;
+      font-size: $font-size-3xl;
+      color: rgb(210, 210, 210);
+    }
+
+    .min-tag {
+      text-transform: uppercase;
+      font-size: $font-size-sm;
+      color: $color-discreet-clarity;
+    }
+  }
+
+  .main-overview {
+    @include flex(center, center);
+    width: 100%;
+    margin: 0 auto;
+    grid-area: cards;
+
+    ul {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      list-style: none;
+      width: 100%;
+
+      @include tablet {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @include mobile-lg {
+        grid-template-columns: 1fr;
+      }
+
+
+      li {
+        width: 100%;
+        padding: 1em;
+        background-color: $color-surface-light;
+
+        span {
+          text-transform: uppercase;
+          font-size: $font-size-sm;
+          color: $color-discreet-clarity;
+        }
+
+        h1 { font-family: $font-heading; }
+      }
+    }
+  }
+
+  .recent-apptm {
+    grid-area: recent;
+  }
+
+  .top-perf {
+    grid-area: perf;
+  }
+}

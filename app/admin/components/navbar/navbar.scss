@@ -1,0 +1,36 @@
+@use '../../../../styles/variables.scss' as *;
+@use '../../../../styles/mixins.scss' as *;
+
+
+.navbar-container {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+
+  @include tablet {
+    @include flex(center, center);
+    background-color: $color-surface-dark;
+
+    ul {
+      @include flex(center, space-around);
+
+      list-style: none;
+      width: 100%;
+      padding: 10px;
+
+      li {
+        padding: 0.5em;
+        border-radius: 10px;
+        font-size: $font-size-lg;
+
+        &.active {
+          background-color: $color-surface-light;
+          color: $color-primary;
+        }
+      }
+    }
+  }
+}

@@ -60,3 +60,9 @@ export type RegisterPayload = {
   email: string;
   gender: boolean;
 }
+
+export type Active = 
+  "dashboards" |
+  "appointments" |
+  "barbers" |
+  "services";

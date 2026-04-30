@@ -1,0 +1,64 @@
+@use '../../../../styles/variables.scss' as *;
+@use '../../../../styles/mixins.scss' as *;
+
+
+.aside-container {
+  @include flex(start, start, column);
+
+  position: sticky;
+  padding: 1em;
+  width: 15em;
+  height: 100dvh;
+  background-color: $color-surface-dark;
+
+  @include tablet {
+    display: none;
+  }
+
+  @include mobile-lg {
+    display: none;
+  }
+
+  header {
+    margin: 2em 0;
+
+    h1 {
+      font-family: $font-heading;
+      font-weight: 500;
+    }
+
+    span {
+      font-size: 12px
+    }
+  }
+
+  ul {
+    @include flex(start, start, column);
+
+    list-style: none;
+    width: 100%;
+    height: 100%;
+    gap: 10;
+
+    li {
+      @include flex(center, start);
+
+      padding: 1em;
+      width: 100%;
+      gap: 10;
+      text-transform: uppercase;
+
+      &:hover {
+        background-color: $color-surface-light;
+        cursor: pointer;
+      }
+
+      &.active {
+        border-right: solid 5px $color-primary;
+        background-color: $color-surface-light;
+        color: $color-primary;
+        font-weight: 700;
+      }
+    }
+  }
+}
