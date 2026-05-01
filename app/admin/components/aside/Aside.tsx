@@ -44,7 +44,7 @@ export default function Aside({active, setActive}: Props) {
             Services
           </li>
 
-          <li><RiLogoutBoxLine /></li>
+          <li><RiLogoutBoxLine /> Logout</li>
         </ul>
       </section>
     </>

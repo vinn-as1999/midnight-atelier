@@ -27,6 +27,27 @@ body {
   padding: 0;
   margin: 0;
   transition: $transition-fast;
+  scrollbar-width: thin;
+  scrollbar-color: $color-primary $color-surface-dark;
+}
+
+// Para Chrome/Safari/Edge
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: $color-surface-dark;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: $color-primary;
+  border-radius: $radius-full;
+
+  &:hover {
+    background-color: $color-secondary;
+  }
 }
 
 a {

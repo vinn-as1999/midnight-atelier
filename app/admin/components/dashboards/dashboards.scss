@@ -15,10 +15,22 @@
 
   @include tablet {
     width: 100vw;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "cards"
+      "recent"
+      "perf";
   }
 
   @include mobile-lg {
     width: 100vw;
+  }
+
+  h2 {
+    margin: 10px 0;
+    font-family: $font-heading;
+    color: rgb(210, 210, 210);
   }
 
   header {
@@ -78,9 +90,71 @@
 
   .recent-apptm {
     grid-area: recent;
+    max-height: 50vh;
+    margin: 10px 0;
+    overflow-y: hidden;
+
+    .apptm-table {
+      border-collapse: collapse;
+      
+      tr {
+        text-align: center;
+        font-size: 12px;
+
+        th {
+          padding: 0.5em;
+          background-color: $color-surface-dark;
+          width: 10%;
+          text-transform: uppercase;
+        }
+
+        td {
+          background-color: $color-surface-light;
+          height: 10vh;
+        }
+      }
+    }
   }
 
   .top-perf {
     grid-area: perf;
+    height: 50vh;
+    margin: 10px;
+    overflow-y: hidden;
+
+    ul {
+      @include flex(start, center, column);
+      gap: 1.5em;
+      list-style: none;
+
+      li {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        grid-template-areas: 
+          "img name"
+          "img reviews";
+        font-family: Arial, Helvetica, sans-serif;
+
+        @include tablet {
+          width: 100%;
+        }
+
+        .image-container {
+          grid-area: img;
+          width: 4em;
+        }
+        
+        h3 {
+          grid-area: name;
+          text-transform: capitalize;
+        }
+
+        span {
+          grid-area: reviews;
+          font-size: $font-size-sm;
+          color: $color-primary;
+        }
+      }
+    }
   }
 }
