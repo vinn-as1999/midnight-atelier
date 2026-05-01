@@ -73,7 +73,6 @@ export default function Dashboards({ barbers }: Props) {
           </table>
         </article>
 
-          {/* renderização condicional */}
         <article className="top-perf">
           <h2>Top Performance</h2>
 
@@ -84,29 +83,18 @@ export default function Dashboards({ barbers }: Props) {
                   <li key={barber.id}>
                     <div className="image-container">
                       {
-                        <Image alt="Barber" src={barber.image} />
+                        <Image alt="Barber" src={barber.image} width={50} height={50} />
                       }
                     </div>
 
-                    <h3>{barber.name}</h3>
+                    <div>
+                      <h3>{barber.name}</h3>
+                      <span>4.9 (0 reviews)</span>
+                    </div>
                   </li>
                 )) : null
             }
           </ul>
-
-          {/* <ul>
-            <li>
-              <div className="image-container">img</div>
-              <h3>Julian Thorne</h3>
-              <span>5.0 (0 reviews)</span>
-            </li>
-
-            <li>
-             <div className="image-container">img</div>
-              <h3>Elias Vance</h3>
-              <span>4.9 (0 reviews)</span>
-            </li>
-          </ul> */}
         </article>
       </section>
     </>

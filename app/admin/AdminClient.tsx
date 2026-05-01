@@ -16,7 +16,22 @@ export default function AdminClient({ barbers }: Props) {
   const [active, setActive] = useState<Active>("dashboards");
 
   function switchRender() {
+    switch (active) {
+      case "dashboards":
+        return <Dashboards barbers={barbers} />;
+      
+      case "appointments":
+        return null;
 
+      case "barbers":
+        return null;
+
+      case "services":
+        return null;
+      
+      default: 
+        return <Dashboards barbers={barbers} />
+    }
   };
 
   return (
@@ -27,7 +42,9 @@ export default function AdminClient({ barbers }: Props) {
         <Aside active={active} setActive={setActive} />
 
         <article className="active-container">
-          <Dashboards barbers={barbers} />
+          {
+            switchRender()
+          }
         </article>
       </section>
     </>

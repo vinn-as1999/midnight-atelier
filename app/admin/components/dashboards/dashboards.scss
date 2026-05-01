@@ -134,14 +134,29 @@
           "img name"
           "img reviews";
         font-family: Arial, Helvetica, sans-serif;
+        background-color: $color-surface-dark;
+        padding: 1em;
 
         @include tablet {
+          @include flex(center, start);
+          gap: 10;
+          width: 100%;
+        }
+
+        @include mobile-lg {
+          @include flex(center, start);
+          gap: 10;
           width: 100%;
         }
 
         .image-container {
           grid-area: img;
           width: 4em;
+          
+          img {
+            border-radius: $radius-full;
+            image-resolution: 200;
+          }
         }
         
         h3 {
