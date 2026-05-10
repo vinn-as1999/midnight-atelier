@@ -38,6 +38,10 @@
       word-break: break-word;
       text-align: start;
     }
+
+    .service-value {
+      text-transform: capitalize;
+    }
   }
 
   @include mobile-lg {

@@ -5,10 +5,14 @@
 .aside-container {
   @include flex(start, start, column);
 
-  position: sticky;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: $z-sticky;
   padding: 1em;
   width: 15em;
   height: 100dvh;
+  overflow-y: auto;
   background-color: $color-surface-dark;
 
   @include tablet {

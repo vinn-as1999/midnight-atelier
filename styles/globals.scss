@@ -55,12 +55,22 @@ a {
   cursor: pointer;
 }
 
+h1, h2, h3 {
+  text-transform: capitalize;
+}
+
 .page-tag {
   color: $color-primary;
   text-transform: uppercase;
   text-align: center;
   letter-spacing: 3;
   font-weight: $font-weight-medium;
+}
+
+.min-tag {
+  text-transform: uppercase;
+  font-size: $font-size-sm;
+  color: $color-discreet-clarity;
 }
 
 .icon {

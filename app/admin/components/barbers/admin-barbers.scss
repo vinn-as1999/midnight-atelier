@@ -1,0 +1,252 @@
+@use '../../../../styles/variables.scss' as *;
+@use '../../../../styles/mixins.scss' as *;
+
+
+.barbers-container {
+  width: 80vw;
+  min-height: 100dvh;
+  padding: 1em;
+
+  @include tablet {
+    width: 100vw;
+  }
+
+  @include mobile-lg {
+    width: 100vw;
+  }
+
+  .barbers-management {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 1em;
+    align-items: start;
+    margin: 1em;
+
+    @include tablet {
+      grid-template-columns: 1fr;
+    }
+
+    @include mobile-lg {
+      grid-template-columns: 1fr;
+      margin: 0.75em 0;
+    }
+  }
+
+  .barbers-table-panel,
+  .barber-profile {
+    background-color: $color-surface-dark;
+    border-radius: $radius-md;
+  }
+
+  .barbers-table-panel {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .table-heading {
+    @include flex(center, space-between);
+    gap: 1em;
+    padding: 1em;
+    border-bottom: 1px solid $color-border;
+
+    @include mobile-lg {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    h2 {
+      font-family: $font-heading;
+      font-size: $font-size-xl;
+      color: rgb(210, 210, 210);
+    }
+
+    span {
+      color: $color-discreet-clarity;
+      font-size: $font-size-sm;
+      text-transform: uppercase;
+    }
+  }
+
+  .barbers-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th,
+    td {
+      padding: 1em;
+      text-align: left;
+      border-bottom: 1px solid $color-border;
+    }
+
+    th {
+      background-color: $color-surface;
+      color: $color-discreet-clarity;
+      font-size: $font-size-xs;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    td {
+      color: $color-text-muted;
+      font-size: $font-size-sm;
+      vertical-align: middle;
+    }
+
+    tbody tr {
+      cursor: pointer;
+      outline: none;
+      transition: background-color $transition-fast, box-shadow $transition-fast;
+
+      &:hover,
+      &:focus-visible {
+        background-color: rgba($color-primary, 0.08);
+      }
+
+      &.active {
+        background-color: $color-primary;
+        box-shadow: inset 3px 0 0 $color-primary;
+
+        * {
+          color: black;
+        }
+      }
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    @include mobile-lg {
+      th:nth-child(4),
+      td:nth-child(4) {
+        display: none;
+      }
+
+      th,
+      td {
+        padding: 0.85em;
+      }
+    }
+  }
+
+  .barber-cell {
+    @include flex(center, flex-start);
+    gap: 0.85em;
+    min-width: 12rem;
+
+    img {
+      width: 48px;
+      height: 48px;
+      flex: 0 0 48px;
+      border-radius: $radius-full;
+      object-fit: cover;
+    }
+
+    strong {
+      display: block;
+      color: $color-text;
+      font-family: $font-heading;
+      font-size: $font-size-lg;
+      text-transform: capitalize;
+    }
+
+    span {
+      color: $color-text-muted;
+      font-size: $font-size-xs;
+    }
+  }
+
+  .barber-tag {
+    display: inline-flex;
+    text-align: center;
+    max-width: 100%;
+    padding: 0.35em 0.65em;
+    border-radius: $radius-full;
+    color: $color-primary;
+    font-size: $font-size-xs;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .barber-profile {
+    position: sticky;
+    top: 1em;
+    padding: 1em;
+
+    @include tablet {
+      position: static;
+    }
+
+    @include mobile-lg {
+      position: static;
+    }
+
+    .profile-image {
+      @include flex(center, center);
+      
+      aspect-ratio: 1;
+      margin-bottom: 1em;
+      overflow: hidden;
+
+      img {
+        border-radius: $radius-full;
+        width: 80%;
+        height: 80%;
+        object-fit: cover;
+      }
+    }
+
+    h2 {
+      margin-top: 0.35em;
+      font-family: $font-heading;
+      font-size: $font-size-2xl;
+      color: rgb(210, 210, 210);
+      text-transform: capitalize;
+    }
+
+    p {
+      margin-top: 0.75em;
+      color: $color-text-muted;
+      font-size: $font-size-sm;
+      line-height: 1.6;
+    }
+
+    .profile-phrase {
+      color: $color-text;
+      font-family: $font-heading;
+      font-size: $font-size-lg;
+      line-height: 1.3;
+    }
+
+    dl {
+      display: grid;
+      gap: 0.75em;
+      margin-top: 1em;
+    }
+
+    dl div {
+      @include flex(center, space-between);
+      gap: 1em;
+      padding-top: 0.75em;
+      border-top: 1px solid $color-border;
+    }
+
+    dt {
+      color: $color-discreet-clarity;
+      font-size: $font-size-xs;
+      text-transform: uppercase;
+    }
+
+    dd {
+      color: $color-text;
+      font-size: $font-size-sm;
+      text-align: right;
+    }
+  }
+
+  .empty-state {
+    padding: 1.5em;
+    color: $color-text-muted;
+  }
+}

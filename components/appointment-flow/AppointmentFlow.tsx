@@ -61,14 +61,6 @@ export default function AppointmentFlow({barbers, services}: Props) {
   };
 
 
-  function captalize(name: string): string {
-    const nameSplit = name.split(' ');
-    const captalizedNames = nameSplit.map(name => name.charAt(0).toUpperCase() + name.slice(1))
-
-    return captalizedNames.join(' ')
-  };
-
-
   function handleBack() {
     switch (appointmentStatus) {
       case AppointmentStatus.Barber:
@@ -101,7 +93,6 @@ export default function AppointmentFlow({barbers, services}: Props) {
             serverMessage={serverMessage}
             setServerMessage={setServerMessage}
             isError={isError}
-            captalize={captalize}
             barbers={barbers}
             selectedBarberId={selectedBarberId}
             setSelectedBarberId={setSelectedBarberId}
@@ -111,7 +102,6 @@ export default function AppointmentFlow({barbers, services}: Props) {
       case AppointmentStatus.Service:
         return (
           <SelectService
-            captalize={captalize}
             serverMessage={serverMessage}
             setServerMessage={setServerMessage}
             services={services}
@@ -230,7 +220,7 @@ export default function AppointmentFlow({barbers, services}: Props) {
     saveStoredAppointment({
       date: selectedDate,
       hour: selectedHour,
-      service: selectedService?.name ? captalize(selectedService.name) : "Service not informed",
+      service: selectedService?.name ?? "Service not informed",
     });
     
     setAppointmentStatus(AppointmentStatus.Finish);
@@ -274,12 +264,12 @@ export default function AppointmentFlow({barbers, services}: Props) {
           <ul className="sheet-list">
             <li>
               <h2>service</h2>
-              <span>{selectedService?.name ? captalize(selectedService.name) : 'Select a service'}</span>
+              <span className="capitalize">{selectedService?.name ?? 'Select a service'}</span>
             </li>
 
             <li>
               <h2>barber</h2>
-              <span>{selectedBarber?.name ? captalize(selectedBarber.name) : 'Select a barber'}</span>
+              <span className="capitalize">{selectedBarber?.name ?? 'Select a barber'}</span>
             </li>
             <li>
               <h2>date & time</h2>

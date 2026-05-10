@@ -1,0 +1,83 @@
+@use '../../../../styles/variables.scss' as *;
+@use '../../../../styles/mixins.scss' as *;
+
+
+.adm-services-container {
+  width: 100vw;
+  min-height: 100dvh;
+  padding: 1em;
+  
+  .adm-serv-card {
+    @include flex(center, space-between);
+    width: 80%;
+    padding: 1em;
+
+    @include tablet {
+      @include flex(start, start, column);
+      width: 100%;
+    }
+
+    @include mobile-lg {
+      width: 100%;
+    }
+
+    .card-info {
+      @include flex(center, space-between);
+      background-color: $color-surface-dark;
+      width: 80%;
+      padding: 2em;
+
+      @include tablet {
+        width: 100%;
+      }
+
+      @include mobile-lg {
+        width: 100%;
+      }
+
+      &.special {
+        background: linear-gradient(to bottom, $color-tertiary, $color-primary-hover); 
+        
+        * { color: black; }
+      }
+
+      h2 {
+        text-transform: capitalize;
+        font-family: $font-heading;
+        font-size: $font-size-2xl;
+        color: $color-primary;
+      }
+
+      p {
+        width: 80%;
+        margin: 10px 0;
+      }
+
+      span {
+        font-size: $font-size-2xl;
+        font-family: $font-heading;
+        color: $color-primary;
+        width: 20%;
+
+        @include mobile-lg {
+          font-size: $font-size-lg;
+        }
+      }
+    }
+
+    .card-edit {
+      font-size: $font-size-2xl;
+      text-align: center;
+      width: 20%;
+
+      svg:hover {
+        color: $color-primary;
+        cursor: pointer;
+      }
+
+      .special {
+        color: $color-primary;
+      }
+    }
+  }
+}

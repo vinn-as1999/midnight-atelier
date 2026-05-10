@@ -8,7 +8,6 @@ import { Barber } from '@/types/client-types';
 import ErrorMessage from '../error/ErrorMessage';
 
 type Props = {
-  captalize: (name: string) => string;
   barbers: Barber[];
   selectedBarberId: string | null;
   setSelectedBarberId: (barberId: string) => void;
@@ -18,7 +17,6 @@ type Props = {
 };
 
 export default function SelectBarber({
-  captalize,
   barbers,
   selectedBarberId,
   setSelectedBarberId,
@@ -61,7 +59,7 @@ export default function SelectBarber({
                   </div>
 
                   <article className='barber-info'>
-                    <h3>{captalize(barber.name)}</h3>
+                    <h3>{barber.name}</h3>
                     <div className="reviews">
                       <span className="number">5.0</span>
                       <span className="stars">

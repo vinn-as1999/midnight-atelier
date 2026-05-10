@@ -20,7 +20,7 @@ export default function AppointmentCard() {
 
       <div className="content-group">
         <span className="label">service</span>
-        <p className="value">{appointment?.service ?? 'Service not informed'}</p>
+        <p className="value service-value">{appointment?.service ?? 'Service not informed'}</p>
       </div>
     </section>
   );

@@ -155,6 +155,10 @@
             font-family: $font-heading;
             font-size: $font-size-xl;
           }
+
+          .capitalize {
+            text-transform: capitalize;
+          }
         }
 
         .sheet-total {

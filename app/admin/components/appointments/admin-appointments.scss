@@ -1,0 +1,48 @@
+@use '../../../../styles/variables.scss' as *;
+@use '../../../../styles/mixins.scss' as *;
+
+
+.adm-apptm-container {
+  min-height: 100dvh;
+  padding: 1em;
+
+  .apptm-tab-container {
+    width: 100vw;
+
+    table {
+      border-collapse: collapse;
+      width: 80%;
+
+      @include tablet {
+        width: 95%;
+      }
+
+      th, td {
+        width: 10em;
+        padding: 0.5em;
+        text-align: center;
+        text-transform: capitalize;
+      }
+
+      thead {
+        th {
+          background-color: $color-surface-dark;
+          text-transform: uppercase;
+        }
+      }
+
+      tbody {
+        border: 1px solid rgb(61, 61, 61);
+        background-color: $color-surface-light;
+
+        tr {
+          border-bottom: 1px solid rgb(61, 61, 61)
+        }
+
+        .name {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

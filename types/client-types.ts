@@ -12,6 +12,7 @@ export type Barber = {
   image: string;
   tag: string;
   phrase: string;
+  avg_rating: number | null;
 }
 
 export type Service = {
@@ -20,6 +21,7 @@ export type Service = {
   description: string;
   price: number;
   duration: string;
+  special: boolean;
 }
 
 export interface CreateAppointmentDTO {
@@ -34,6 +36,9 @@ export interface CreateAppointmentDTO {
 export interface Appointment extends CreateAppointmentDTO {
   id: string;
   client_id: string;
+  barber: { id: string; name: string };
+  service: { id: string; name: string };
+  client: { id: string; name: string };
 }
 
 export type StoredAppointment = {

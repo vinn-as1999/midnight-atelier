@@ -75,3 +75,27 @@
     background: linear-gradient(to right, $color-tertiary, $color-primary-hover);
   }
 }
+
+@mixin navbar-styles {
+  @include flex(center, center);
+  background-color: $color-surface-dark;
+
+  ul {
+    @include flex(center, space-around);
+
+    list-style: none;
+    width: 100%;
+    padding: 10px;
+
+    li {
+      padding: 0.5em;
+      border-radius: 10px;
+      font-size: $font-size-lg;
+
+      &.active {
+        background-color: $color-surface-light;
+        color: $color-primary;
+      }
+    }
+  }
+}

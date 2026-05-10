@@ -1,36 +1,50 @@
 'use client';
 
-import { Active, Barber } from "@/types/client-types";
+import { Active, Appointment, Barber, Service } from "@/types/client-types";
 import { useState } from "react";
 import Aside from "./components/aside/Aside";
 import Navbar from "./components/navbar/Navbar";
 import Dashboards from "./components/dashboards/Dashboards";
 import './admin-page.scss';
+import AdminAppointments from "./components/appointments/AdminAppointments";
+import AdminBarbers from "./components/barbers/AdminBarbers";
+import AdminServices from "./components/services/AdminServices";
 
 
 type Props = {
+  appointments: Appointment[];
   barbers: Barber[];
+  services: Service[];
 }
 
-export default function AdminClient({ barbers }: Props) {
+export default function AdminClient({ appointments, barbers, services }: Props) {
   const [active, setActive] = useState<Active>("dashboards");
+  const [searchList, setSearchList] = useState<Appointment[]>(appointments);
+
+  function formatDate(date: string): string {
+    const day = date.slice(8, 10);
+    const month = date.slice(5, 7);
+    const year = date.slice(0, 4);
+
+    return `${day}/${month}/${year}`
+  };
 
   function switchRender() {
     switch (active) {
       case "dashboards":
-        return <Dashboards barbers={barbers} />;
+        return <Dashboards appointments={appointments} barbers={barbers} formatDate={formatDate} />;
       
       case "appointments":
-        return null;
+        return <AdminAppointments appointments={appointments} formatDate={formatDate} searchList={searchList} setSearchList={setSearchList} />;
 
       case "barbers":
-        return null;
+        return <AdminBarbers barbers={barbers} />;
 
       case "services":
-        return null;
+        return <AdminServices services={services} />;
       
       default: 
-        return <Dashboards barbers={barbers} />
+        return <Dashboards appointments={appointments} barbers={barbers} formatDate={formatDate} />
     }
   };
 

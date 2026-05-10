@@ -1,0 +1,13 @@
+@use '../../../../styles/variables.scss' as *;
+
+
+.admin-section-header {
+  grid-area: header;
+  margin: 1em;
+
+  h1 {
+    font-family: $font-heading;
+    font-size: $font-size-3xl;
+    color: rgb(210, 210, 210);
+  }
+}

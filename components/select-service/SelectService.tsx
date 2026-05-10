@@ -7,7 +7,6 @@ import { Service } from '@/types/client-types';
 import ErrorMessage from '../error/ErrorMessage';
 
 type Props = {
-  captalize: (name: string) => string;
   services: Service[];
   selectedServiceId: string | null;
   setSelectedServiceId: (serviceId: string) => void;
@@ -17,7 +16,6 @@ type Props = {
 };
 
 export default function SelectService({
-  captalize,
   services,
   selectedServiceId,
   setSelectedServiceId,
@@ -48,7 +46,7 @@ export default function SelectService({
             {services.map((service) => (
               <li key={service.id}>
                 <ServicesCard
-                  title={captalize(service.name)}
+                  title={service.name}
                   description={service.description}
                   price={service.price}
                   duration={service.duration}

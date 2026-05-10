@@ -1,0 +1,33 @@
+@use '../../../../styles/variables.scss' as *;
+@use '../../../../styles/mixins.scss' as *;
+
+
+.search-input-container {
+  @include flex(center, start, row);
+
+  width: 100%;
+  gap: 1em;
+  margin: 1em 0;
+
+  .input-container {
+    @include flex(center, start);
+    background-color: $color-surface-dark;
+    padding: 0.5em;
+    width: 30em;
+    border-radius: $radius-md;
+
+    input {
+      all: unset;
+      width: 70%;
+      padding: 0.5em;
+    }
+
+    button {
+      all: unset;
+      @include flex(center, center);
+      background-color: $color-primary;
+      width: 20%;
+      padding: 0.5em;
+    }
+  }
+}

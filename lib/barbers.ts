@@ -3,7 +3,9 @@ import supabase from './db';
 
 
 export async function getBarbers(): Promise<Barber[]> {
-  const { data, error } = await supabase.from('barbers').select('*');
+  const { data, error } = await supabase.rpc('get_barbers_with_avg');
+  
   if (error) throw error;
+
   return data;
-}
+};

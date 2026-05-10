@@ -2,28 +2,31 @@ import { HiOutlineCurrencyDollar } from "react-icons/hi2";
 import { MdOutlineCalendarToday, MdOutlineGroup, MdOutlinePersonAdd } from "react-icons/md";
 import './dashboards.scss';
 import Image from "next/image";
-import { Barber } from "@/types/client-types";
+import { Appointment, Barber } from "@/types/client-types";
+import Reviews from "../reviews/Reviews";
+import AdminHeader from "../header/AdminHeader";
 
 
 type Props = {
+  appointments: Appointment[];
   barbers: Barber[];
+  formatDate: (date: string) => string;
 }
 
-export default function Dashboards({ barbers }: Props) {
+export default function Dashboards({ appointments, barbers, formatDate }: Props) {
+  const recentAppointments = appointments.slice(0, 4)
+
   return (
     <>
       <section className="dashboards-container">
-        <header>
-          <h1>Executive Dashboard</h1>
-          <span className="min-tag">The Midnight Atelier • Operational Overview</span>
-        </header>
+        <AdminHeader title="Executive Dashboard" />
 
         <article className="main-overview">
           <ul>
             <li>
               <div className="icon"><HiOutlineCurrencyDollar /></div>
               <span>total revenue</span>
-              <h1>12</h1>
+              <h1>$ 12</h1>
             </li>
 
             <li>
@@ -56,19 +59,39 @@ export default function Dashboards({ barbers }: Props) {
                 <th>customer</th>
                 <th>service</th>
                 <th>barber</th>
+                <th>date</th>
                 <th>time</th>
                 <th>status</th>
               </tr>
             </thead>
 
             <tbody>
-              <tr className="apptm-card">
-                <td>Julian Dereck</td>
-                <td>The Full Atelier</td>
-                <td>Elias Vance</td>
-                <td>14:00h</td>
-                <td className="card-status">complete</td>
-              </tr>
+              {
+                recentAppointments?.length > 0
+                  ? recentAppointments.map(apptm => (
+                    <tr key={apptm.id}>
+                      <td>
+                        {apptm.client.name}
+                      </td>
+                      <td>
+                        {apptm.service.name}
+                      </td>
+                      <td>
+                        {apptm.barber.name}
+                      </td>
+                      <td>
+                        {formatDate(apptm.date)}
+                      </td>
+                      <td>
+                        {String(apptm.hour).slice(0, 5)}
+                      </td>
+                      <td>
+                        Pending
+                      </td>
+                    </tr>
+                  ))
+                  : null
+              }
             </tbody>
           </table>
         </article>
@@ -89,7 +112,7 @@ export default function Dashboards({ barbers }: Props) {
 
                     <div>
                       <h3>{barber.name}</h3>
-                      <span>4.9 (0 reviews)</span>
+                      <Reviews rating={barber.avg_rating} size="sm" />
                     </div>
                   </li>
                 )) : null

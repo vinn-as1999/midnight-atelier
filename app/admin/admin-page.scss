@@ -6,4 +6,16 @@
   @include flex(start, start);
   position: relative;
   width: 100vw;
+
+  .active-container {
+    margin-left: 15em;
+
+    @include tablet {
+      margin-left: 0;
+    }
+
+    @include mobile-lg {
+      margin-left: 0;
+    }
+  }
 }

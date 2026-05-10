@@ -1,0 +1,29 @@
+@use '../../../../styles/variables.scss' as *;
+@use '../../../../styles/mixins.scss' as *;
+
+
+.reviews-container {
+  @include flex(center, flex-start);
+  gap: 0.4em;
+  color: $color-primary;
+
+  .review-number {
+    color: $color-text;
+    font-weight: $font-weight-bold;
+    line-height: 1;
+  }
+
+  .review-stars {
+    @include flex(center, flex-start);
+    gap: 0.1em;
+    line-height: 1;
+  }
+
+  &.sm {
+    font-size: $font-size-sm;
+  }
+
+  &.md {
+    font-size: $font-size-lg;
+  }
+}
