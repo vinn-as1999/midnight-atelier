@@ -41,6 +41,10 @@
   .barbers-table-panel {
     min-width: 0;
     overflow: hidden;
+
+    .add-barber-button {
+      margin: 1em;
+    }
   }
 
   .table-heading {

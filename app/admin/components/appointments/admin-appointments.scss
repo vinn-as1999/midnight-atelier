@@ -6,6 +6,15 @@
   min-height: 100dvh;
   padding: 1em;
 
+  .search-div {
+    @include flex(center, start);
+    width: 65%;
+
+    @include tablet {
+      width: 80%;
+    }
+  }
+
   .apptm-tab-container {
     width: 100vw;
 
@@ -32,13 +41,6 @@
       }
 
       tbody {
-        border: 1px solid rgb(61, 61, 61);
-        background-color: $color-surface-light;
-
-        tr {
-          border-bottom: 1px solid rgb(61, 61, 61)
-        }
-
         .name {
           font-weight: bold;
         }

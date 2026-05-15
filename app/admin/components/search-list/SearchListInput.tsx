@@ -8,14 +8,21 @@ import './search-input.scss';
 
 type Props = {
   appointments: Appointment[];
+  currentMonth: string;
   setSearchList: Dispatch<SetStateAction<Appointment[]>>
 }
 
-export default function SearchListInput({appointments, setSearchList}: Props) {
+export default function SearchListInput({appointments, currentMonth, setSearchList}: Props) {
   const [term, setTerm] = useState<string>('');
 
   function searchScheduling(): Appointment[] {
     const search = term.toLowerCase().trim();
+
+    if (term === '') {
+      const originalList = appointments.filter(scheduling => scheduling.date.slice(5, 7) === currentMonth);
+      setSearchList(originalList);
+      return originalList;
+    }
     
     const filtered = appointments.filter((scheduling) => {
       return (
@@ -36,6 +43,10 @@ export default function SearchListInput({appointments, setSearchList}: Props) {
           .includes(search)
       );
     });
+
+    if (filtered.length <= 0) {
+      
+    }
 
     setSearchList(filtered);
 

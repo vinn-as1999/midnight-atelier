@@ -1,0 +1,171 @@
+@use '../../../../styles/variables.scss' as *;
+@use '../../../../styles/mixins.scss' as *;
+
+.modal-container {
+  @include flex(center, center);
+
+  position: fixed;
+  inset: 0;
+  z-index: $z-modal;
+  padding: 1em;
+  background-color: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(6px);
+}
+
+.modal-form {
+  width: min(100%, 520px);
+  max-height: calc(100dvh - 2em);
+  overflow-y: auto;
+  background-color: $color-surface-dark;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  box-shadow: $shadow-lg;
+
+  form {
+    display: grid;
+    gap: 0.8em;
+    padding: 1.25em;
+  }
+
+  label {
+    color: $color-discreet-clarity;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    text-transform: uppercase;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 0.9em 1em;
+    background-color: $color-surface;
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    color: $color-text;
+    font-size: $font-size-sm;
+    outline: none;
+    transition: border-color $transition-fast, box-shadow $transition-fast;
+
+    &::placeholder {
+      color: rgba($color-text-muted, 0.6);
+    }
+
+    &:focus {
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px rgba($color-primary, 0.12);
+    }
+  }
+
+  textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+}
+
+.modal-header {
+  @include flex(flex-start, space-between);
+
+  gap: 1em;
+  margin-bottom: 0.5em;
+
+  span {
+    color: $color-discreet-clarity;
+    font-size: $font-size-xs;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin-top: 0.2em;
+    color: $color-text;
+    font-family: $font-heading;
+    font-size: $font-size-2xl;
+    text-transform: capitalize;
+  }
+}
+
+.modal-close {
+  @include flex(center, center);
+
+  flex: 0 0 2.4rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  background-color: $color-surface-light;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  color: $color-text-muted;
+  cursor: pointer;
+  transition: color $transition-fast, border-color $transition-fast, background-color $transition-fast;
+
+  svg {
+    font-size: $font-size-lg;
+  }
+
+  &:hover {
+    background-color: $color-surface;
+    border-color: $color-primary;
+    color: $color-primary;
+  }
+}
+
+.modal-fields-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8em;
+
+  div {
+    display: grid;
+    gap: 0.8em;
+  }
+
+  @include mobile-lg {
+    grid-template-columns: 1fr;
+  }
+}
+
+.modal-checkbox {
+  @include flex(center, flex-start);
+
+  gap: 0.7em;
+  padding: 0.85em 0;
+  color: $color-text-muted;
+  text-transform: none;
+
+  input {
+    width: 1rem;
+    height: 1rem;
+    accent-color: $color-primary;
+  }
+
+  span {
+    font-size: $font-size-sm;
+  }
+}
+
+.modal-message {
+  padding: 0.85em 1em;
+  border-radius: $radius-sm;
+  font-size: $font-size-sm;
+
+  &.success {
+    background-color: rgba($color-success, 0.12);
+    color: $color-success;
+  }
+
+  &.error {
+    background-color: rgba($color-error, 0.12);
+    color: $color-error;
+  }
+}
+
+.modal-submit {
+  @include button;
+
+  margin-top: 0.5em;
+  border-radius: $radius-sm;
+
+  &:disabled {
+    cursor: not-allowed;
+    filter: grayscale(0.5);
+    opacity: 0.7;
+  }
+}

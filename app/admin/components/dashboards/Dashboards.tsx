@@ -1,10 +1,12 @@
 import { HiOutlineCurrencyDollar } from "react-icons/hi2";
-import { MdOutlineCalendarToday, MdOutlineGroup, MdOutlinePersonAdd } from "react-icons/md";
+import { MdCancelPresentation, MdOutlineCalendarToday, MdOutlineGroup, MdOutlinePersonAdd } from "react-icons/md";
 import './dashboards.scss';
 import Image from "next/image";
 import { Appointment, Barber } from "@/types/client-types";
 import Reviews from "../reviews/Reviews";
 import AdminHeader from "../header/AdminHeader";
+import { LiaEdit } from "react-icons/lia";
+import { FaRegCheckSquare } from "react-icons/fa";
 
 
 type Props = {
@@ -14,7 +16,13 @@ type Props = {
 }
 
 export default function Dashboards({ appointments, barbers, formatDate }: Props) {
-  const recentAppointments = appointments.slice(0, 4)
+  const recentAppointments = appointments.slice(0, 4);
+  const topPerfList = barbers.sort((a: Barber, b: Barber) => {
+    if (a.avg_rating === null) return 1;
+    if (b.avg_rating === null) return -1;
+    
+    return b.avg_rating - a.avg_rating;
+  })
 
   return (
     <>
@@ -57,9 +65,7 @@ export default function Dashboards({ appointments, barbers, formatDate }: Props)
             <thead>
               <tr>
                 <th>customer</th>
-                <th>service</th>
                 <th>barber</th>
-                <th>date</th>
                 <th>time</th>
                 <th>status</th>
               </tr>
@@ -74,19 +80,19 @@ export default function Dashboards({ appointments, barbers, formatDate }: Props)
                         {apptm.client.name}
                       </td>
                       <td>
-                        {apptm.service.name}
-                      </td>
-                      <td>
                         {apptm.barber.name}
-                      </td>
-                      <td>
-                        {formatDate(apptm.date)}
                       </td>
                       <td>
                         {String(apptm.hour).slice(0, 5)}
                       </td>
                       <td>
-                        Pending
+                        {apptm.status}
+                      </td>
+                      <td className="edit-apptm">
+                        <ul>
+                          <li><MdCancelPresentation /></li>
+                          <li><FaRegCheckSquare /></li>
+                        </ul>
                       </td>
                     </tr>
                   ))
@@ -101,8 +107,8 @@ export default function Dashboards({ appointments, barbers, formatDate }: Props)
 
           <ul>
             {
-              barbers.length > 0
-                ? barbers.map(barber => (
+              topPerfList.length > 0
+                ? topPerfList.map(barber => (
                   <li key={barber.id}>
                     <div className="image-container">
                       {

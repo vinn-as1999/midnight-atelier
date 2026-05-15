@@ -1,0 +1,56 @@
+@use '../../../../styles/variables.scss' as *;
+
+.no-results-row {
+  border-bottom: 0;
+
+  td {
+    padding: $spacing-xl $spacing-md;
+    text-transform: none;
+  }
+}
+
+.no-results {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-md;
+  min-height: 12rem;
+  color: $color-text-muted;
+  text-align: left;
+
+  .no-results-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 3rem;
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid rgba($color-primary, 0.32);
+    border-radius: $radius-md;
+    background-color: rgba($color-primary, 0.08);
+    color: $color-primary;
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    margin: 0;
+    color: $color-text;
+    font-family: $font-heading;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    line-height: 1.2;
+  }
+
+  p {
+    max-width: 24rem;
+    margin: $spacing-xs 0 0;
+    font-size: $font-size-sm;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: $bp-sm) {
+  .no-results {
+    flex-direction: column;
+    text-align: center;
+  }
+}

@@ -1,5 +1,5 @@
 // app/appointment/page.tsx — busca UMA vez aqui
-import AppointmentFlow from '@/components/appointment-flow/AppointmentFlow';
+import AppointmentFlow from '@/app/client/components/appointment-flow/AppointmentFlow';
 import { getBarbers } from '@/lib/barbers';
 import './appointment.scss';
 import { getServices } from '@/lib/services';

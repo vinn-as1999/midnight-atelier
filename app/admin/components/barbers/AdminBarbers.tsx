@@ -6,18 +6,29 @@ import { useState } from 'react';
 import './admin-barbers.scss';
 import Reviews from '../reviews/Reviews';
 import AdminHeader from '../header/AdminHeader';
+import { AddBarberButton } from '../add-buttons/AddButtons';
+import AddBarberModal from '../modal/AddBarberModal';
 
 
 export default function AdminBarbers({barbers}: {barbers: Barber[]}) {
   const [selectedBarberId, setSelectedBarberId] = useState(barbers[0]?.id);
-  const selectedBarber = barbers.find(barber => barber.id === selectedBarberId) ?? barbers[0];
+  const [activeAddButton, setActiveAddButton] = useState<boolean>(false);
+  const [barberList, setBarberList] = useState<Barber[]>(barbers);
 
-  console.log(barbers)
+  const selectedBarber = barbers.find(barber => barber.id === selectedBarberId) ?? barbers[0];
 
   return (
     <>
       <section className="barbers-container">
         <AdminHeader title="Oficial Barbers" />
+        
+        <AddBarberButton setActiveAddButton={setActiveAddButton} />
+
+        {
+          activeAddButton
+            ? <AddBarberModal onClose={() => setActiveAddButton(false)} setBarberList={setBarberList} />
+            : null
+        }
 
         <article className="barbers-management">
           <div className="barbers-table-panel">
@@ -27,7 +38,7 @@ export default function AdminBarbers({barbers}: {barbers: Barber[]}) {
             </div>
 
             {
-              barbers.length > 0
+              barberList.length > 0
                 ? (
                   <table className="barbers-table">
                     <thead>
@@ -41,7 +52,7 @@ export default function AdminBarbers({barbers}: {barbers: Barber[]}) {
 
                     <tbody>
                       {
-                        barbers.map(barber => (
+                        barberList.map(barber => (
                           <tr
                             key={barber.id}
                             className={selectedBarber?.id === barber.id ? 'active' : ''}

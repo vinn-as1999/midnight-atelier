@@ -7,22 +7,30 @@ import './admin-services.scss';
 import { Service } from "@/types/client-types";
 import { IoMdStar, IoMdStarOutline } from "react-icons/io";
 import { useState } from "react";
+import { AddServiceButton } from "../add-buttons/AddButtons";
+import AddServiceModal from "../modal/AddServiceModal";
 
 
 export default function AdminServices({services}: {services: Service[]}) {
-  const [special, setSpecial] = useState('');
+  const [activeAddButton, setActiveAddButton] = useState<boolean>(false);
 
   return (
     <>
       <section className="adm-services-container">
         <AdminHeader title="The Atelier Services" />
+        
+        <AddServiceButton setActiveAddButton={setActiveAddButton} />
+
         {
-          // adicionar novo serviço ou remover
+          activeAddButton
+            ? <AddServiceModal onClose={() => setActiveAddButton(false)} />
+            : null
         }
+
         {
           services?.length > 0
             ? services.map(serv => (
-              <article className="adm-serv-card">
+              <article className="adm-serv-card" key={serv.id}>
                 <div className={`card-info ${serv.special ? 'special' : ''}`}>
                   <div>
                     <h2>{serv.name}</h2>

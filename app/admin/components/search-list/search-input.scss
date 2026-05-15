@@ -11,6 +11,7 @@
 
   .input-container {
     @include flex(center, start);
+
     background-color: $color-surface-dark;
     padding: 0.5em;
     width: 30em;
@@ -20,6 +21,7 @@
       all: unset;
       width: 70%;
       padding: 0.5em;
+      color: $color-primary;
     }
 
     button {

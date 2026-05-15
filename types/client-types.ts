@@ -5,7 +5,7 @@ export enum AppointmentStatus {
   Finish = "finish"
 }
 
-export type Barber = {
+export interface Barber {
   id: string;
   name: string;
   description: string;
@@ -14,6 +14,8 @@ export type Barber = {
   phrase: string;
   avg_rating: number | null;
 }
+
+export interface BarberInsert extends Omit<Barber, 'id' | 'avg_rating'> {}
 
 export type Service = {
   id: string;
@@ -31,7 +33,14 @@ export interface CreateAppointmentDTO {
   date: string;
   hour: string;
   total: number;
+  status: string;
 }
+
+export type AppointmentDTOStatus = 
+  "pending" | 
+  "approved" | 
+  "finished" | 
+  "canceled";
 
 export interface Appointment extends CreateAppointmentDTO {
   id: string;
@@ -58,6 +67,7 @@ export type ServerResponse<T = null> = {
   message: string;
   success: boolean;
   data?: T;
+  path?: string;
 }
 
 export type RegisterPayload = {

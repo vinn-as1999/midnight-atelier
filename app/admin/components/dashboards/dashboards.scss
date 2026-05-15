@@ -74,10 +74,17 @@
   .recent-apptm {
     grid-area: recent;
     max-height: 55vh;
+    width: 50vw;
     margin: 10px 0;
     overflow-y: hidden;
 
+    @include tablet {
+      width: 100%;
+    }
+
     .apptm-table {
+      border-collapse: collapse;
+      
       tr {
         text-align: center;
         font-size: 12px;
@@ -85,15 +92,33 @@
         th {
           padding: 0.5em;
           background-color: $color-surface-dark;
-          width: 10%;
+          width: 25%;
           text-transform: uppercase;
         }
 
         td {
-          background-color: $color-surface-light;
           height: 10vh;
           text-transform: capitalize;
           font-family: Arial, Helvetica, sans-serif;
+
+          @include tablet {
+            height: 5vh;
+          }
+        }
+
+        .edit-apptm {
+          min-width: 10vw;
+          background-color: transparent;
+          
+          ul {
+            @include flex(center, space-around, row);
+            list-style: none;
+            
+            li {
+              cursor: pointer;
+              font-size: $font-size-lg;
+            }
+          }
         }
       }
     }

@@ -3,23 +3,31 @@ import './admin-appointments.scss';
 import AdminHeader from "../header/AdminHeader";
 import { Dispatch, SetStateAction } from "react";
 import SearchListInput from "../search-list/SearchListInput";
+import { months } from "@/app/utils/months";
+import NoResults from "../no-results/NoResults";
 
 
 type Props = {
   appointments: Appointment[];
+  currentMonth: string;
   formatDate: (date: string) => string;
   searchList: Appointment[];
   setSearchList: Dispatch<SetStateAction<Appointment[]>>;
 }
 
-export default function AdminAppointments({appointments, formatDate, searchList, setSearchList}: Props) {
-
+export default function AdminAppointments({appointments, currentMonth, formatDate, searchList, setSearchList}: Props) {
+  
   return (
     <>
       <section className="adm-apptm-container">
         <AdminHeader title="Registered Appointments" />
 
-        <SearchListInput appointments={appointments} setSearchList={setSearchList} />
+        <div className="search-div">
+          <SearchListInput appointments={appointments} currentMonth={currentMonth} setSearchList={setSearchList} />
+
+          <h1 className="page-tag">{months[parseInt(currentMonth) - 1]}</h1>
+          
+        </div>
 
         <article className="apptm-tab-container">
           <table>
@@ -44,10 +52,12 @@ export default function AdminAppointments({appointments, formatDate, searchList,
                       <td className="name">{apptm.barber.name}</td>
                       <td>{formatDate(apptm.date)}</td>
                       <td>{String(apptm.hour).slice(0, 5)}</td>
-                      <td>Complete</td>
+                      <td>{apptm.status}</td>
                     </tr>
                   ))
-                  : null
+                  : (
+                    <NoResults />
+                  )
               }
             </tbody>
           </table>

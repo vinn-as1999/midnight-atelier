@@ -18,8 +18,12 @@ type Props = {
 }
 
 export default function AdminClient({ appointments, barbers, services }: Props) {
+  const date = new Date;
+  const currentMonth = String(date.getMonth() + 1).padStart(2, '0');
+
   const [active, setActive] = useState<Active>("dashboards");
-  const [searchList, setSearchList] = useState<Appointment[]>(appointments);
+  const [searchList, setSearchList] = useState<Appointment[]>(appointments.filter(scheduling => scheduling.date.slice(5, 7) === currentMonth));
+  
 
   function formatDate(date: string): string {
     const day = date.slice(8, 10);
@@ -35,7 +39,13 @@ export default function AdminClient({ appointments, barbers, services }: Props) 
         return <Dashboards appointments={appointments} barbers={barbers} formatDate={formatDate} />;
       
       case "appointments":
-        return <AdminAppointments appointments={appointments} formatDate={formatDate} searchList={searchList} setSearchList={setSearchList} />;
+        return <AdminAppointments 
+          appointments={appointments} 
+          currentMonth={currentMonth} 
+          formatDate={formatDate} 
+          searchList={searchList} 
+          setSearchList={setSearchList} 
+        />;
 
       case "barbers":
         return <AdminBarbers barbers={barbers} />;

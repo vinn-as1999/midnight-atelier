@@ -1,4 +1,4 @@
-import Footer from "@/components/footer/Footer";
+import Footer from "@/app/client/components/footer/Footer";
 import { MdFaceUnlock, MdStarBorderPurple500 } from "react-icons/md";
 import { PiScissorsLight } from "react-icons/pi";
 import Link from "next/link";
@@ -6,7 +6,7 @@ import '../styles/home.scss';
 import { IoMdStar, IoMdStarHalf } from "react-icons/io";
 import { FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { IoLocationOutline } from "react-icons/io5";
-import OptionsController from "@/components/opt-controller/OptionsController";
+import OptionsController from "@/app/client/components/opt-controller/OptionsController";
 import { getBarbers } from "@/lib/barbers";
 import Image from "next/image";
 
